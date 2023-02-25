@@ -1,12 +1,13 @@
 :root {
     --primary-color:#1E1E1E;
-    --w-grid: calc(100vw - 128px);
+    --w-grid: calc(1400px - 128px);
     --w-item-grid : calc(var(--w-grid) / 5)
 }
 html,body {
     background:var(--primary-color);
     padding: 0;
     margin: 0;
+    
 }
 body * {
     color:white !important;
@@ -43,7 +44,7 @@ div.grid-container > div:nth-child(4):after {
     position:absolute;
     width:1px;
     height:100vh;
-    background:red;
+    background: #ffffff36;
     right:0;
 }
 .warpper-content {
@@ -53,11 +54,12 @@ div.grid-container > div:nth-child(4):after {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
     height:100%;
-    top:0;
+    margin: 0 auto;
+   /*  top:0;
     left:0;
     
     left:50%;
-    transform:translateX(-50%);
+    transform:translateX(-50%); */
 }
 .hero-section {
     height:100vh;
@@ -142,4 +144,132 @@ div.grid-container > div:nth-child(4):after {
 .welcome-section img {
     width:100%;
     height:auto;
+}
+
+
+
+/* partners section */
+.partners-section {
+    height:fit-content;
+    border-bottom:1px solid rgb(225,225,225,.2);
+}
+.partners-section .content {
+    width: calc(var(--w-item-grid) * 2);
+    margin-top:30vh;
+}
+.partners-section .content h2 {
+    font-family: Marcellus;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 75px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+.partners-section .content p {
+    font-family: PoiretOne;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 37px;
+    letter-spacing: 0.01em;
+    text-align: left;
+}
+.partners-section .detail {
+    height:fit-content;
+    width: calc(var(--w-item-grid) * 3);
+
+    display:grid;
+    grid-template-columns: 33.333% 33.333% 33.333%;
+    flex-wrap:wrap;
+}
+.partners-section .detail div {
+    padding: 16px;
+    display:block;
+    overflow:hidden;
+}
+.partners-section .detail div img{
+    width:100%;
+    height:100%;
+}
+
+
+/* services section */
+.services-section {
+ 
+    z-index:5;
+    width:100vw;
+    position:relative;
+    display: grid;
+    grid-template-columns: 33.333% 33.333% 33.333%;
+    height:100%;
+    margin: 0 auto;
+    background:var(--primary-color);
+}
+.services-section .title {
+    width: fit-content;
+    margin: 0 auto;
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+.services-section .detail {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row: 2;
+}
+.services-section .title h2 {
+    font-family: Marcellus;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+.services-section .detail div {
+    position:relative;
+    padding: 16px 0;
+    cursor:pointer;
+    transition:300ms;
+    opacity:.5;
+}
+.services-section .detail div span {
+    position:absolute;
+    width:100vw;
+    height:1px;
+    background: rgb(225,225,225,.2);
+    bottom:0;
+    left:0;
+}
+.services-section .detail div a {
+    font-family: Marcellus;
+    font-size: 95px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-align: left;
+    position:relative;
+    transform:translateX(-50%);
+   
+}   
+.services-section .detail div:nth-child(1) a {
+    left:10%;
+}
+.services-section .detail div:nth-child(2) a {
+    left:40%;
+}
+.services-section .detail div:nth-child(3) a {
+    left:5%;
+}
+.services-section .detail div:nth-child(4) a {
+    left:60%;
+}
+.services-section .detail div:nth-child(5) a {
+    left:40%;
+}
+.services-section .detail:hover div {
+    opacity:.1;
+    transition:300ms;
+}
+.services-section .detail div:hover {
+    opacity:1 !important;
+    transition:300ms;
 }

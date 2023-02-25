@@ -2,7 +2,8 @@ import React from 'react'
 import '.././styles/Home.css'
 import img01 from '../asset/img.png'
 import { AiOutlineArrowRight } from 'react-icons/ai';
-
+import Partners from '../components/Partners';
+import Services from '../components/Services';
 export default function Home() {
   return (
     <>
@@ -29,10 +30,10 @@ export default function Home() {
       <div className='welcome-section'>
        <img src={img01} alt='' />
       </div>
-     
-        
+      <Partners/>
+      <Services/>
      </div>
-        
+    
         
     </>
   )
