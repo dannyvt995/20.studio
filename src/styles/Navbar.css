@@ -1,0 +1,18 @@
+.navbar {
+
+}
+.navbar .ic-nav-open {
+    display:flex;
+    position:fixed;
+    background:red;
+    border-radius:50%;
+    width:80px;
+    height:80px;
+    top:2rem;
+    right:2rem;
+    align-items: center;
+    justify-content: center;
+}
+.navbar .ic-nav-open svg {
+    color:white;
+}

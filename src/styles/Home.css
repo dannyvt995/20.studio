@@ -1,0 +1,145 @@
+:root {
+    --primary-color:#1E1E1E;
+    --w-grid: calc(100vw - 128px);
+    --w-item-grid : calc(var(--w-grid) / 5)
+}
+html,body {
+    background:var(--primary-color);
+    padding: 0;
+    margin: 0;
+}
+body * {
+    color:white !important;
+}
+.grid-container {
+   
+    position:fixed;
+    display: grid;
+    width:var(--w-grid);
+    grid-template-columns: auto auto auto auto auto;
+    height:100%;
+    top:0;
+    left:0;
+   
+    left:50%;
+    transform:translateX(-50%);
+    z-index:0;
+   
+}
+.grid-item {
+    
+ 
+    height:100%;
+    display:block;
+}
+div.grid-container > div:nth-child(n) {
+    position:relative;
+}
+div.grid-container > div:nth-child(1):after,
+div.grid-container > div:nth-child(2):after,
+div.grid-container > div:nth-child(3):after,
+div.grid-container > div:nth-child(4):after {
+    content:"";
+    position:absolute;
+    width:1px;
+    height:100vh;
+    background:red;
+    right:0;
+}
+.warpper-content {
+    z-index:5;
+    width:var(--w-grid);
+    position:relative;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    height:100%;
+    top:0;
+    left:0;
+    
+    left:50%;
+    transform:translateX(-50%);
+}
+.hero-section {
+    height:100vh;
+    overflow:hidden;
+}
+
+.img-hero-sec {
+    width:calc(var(--w-item-grid) * 2 );
+    position:relative;
+    overflow: hidden;
+    background:url(.././asset/hero.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 70%;
+}
+.img-hero-sec img {
+    width: 100%;
+
+    object-fit: contain;
+}
+.hero-section .content {
+    position:relative;
+    width: calc(var(--w-item-grid) * 3 );
+   
+    grid-template-columns: 33.333% 33.333% 33.333%;
+    display:grid;
+    height:100vh;
+}
+.hero-section .content .title {
+    position: relative;
+    display: block;
+    top: 70%;
+    width: calc(var(--w-item-grid) * 3 );
+    height: fit-content;
+    font-family: "Marcellus";
+}
+.hero-section .content .title span,.hero-section .content h2 {
+    text-transform:uppercase;
+    display:block;
+    width:fit-content;
+}
+.hero-section  .name {
+    position:relative;
+    display:block;
+    top:60%;
+    left: -60%;
+    grid-column: 1;
+}
+.hero-section .content h2  {
+    font-size:64px;
+    letter-spacing:5px;
+    font-family:"PoiretOne";
+}
+.hero-section .content .title span {
+    font-size:64px;
+    letter-spacing:2px;
+   
+}
+.hero-section .content .title span:nth-child(1) {
+    text-align:right;
+    width: calc(var(--w-item-grid) * 2 );
+}
+.hero-section .content .title span:nth-child(2) {
+    text-align:right;
+    width: calc(var(--w-item-grid) * 3 );
+}
+.hero-section .content .more {
+    width: calc(var(--w-item-grid));
+    position:relative;
+    display:block;
+    top:40%;
+    grid-column: 3;
+    font-family: "Marcellus";
+    line-height:32px;
+    letter-spacing:2px;
+    padding-left:16px;
+}
+.welcome-section {
+    overflow:hidden;
+    margin-top:3rem;
+}
+.welcome-section img {
+    width:100%;
+    height:auto;
+}
