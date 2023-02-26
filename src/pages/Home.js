@@ -1,13 +1,21 @@
-import React from 'react'
+import React,{useEffect,useRef} from 'react'
 import '.././styles/Home.css'
 import img01 from '../asset/img.png'
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import Partners from '../components/Partners';
 import Services from '../components/Services';
+import Gallery from '../components/Gallery';
+import Contact from '../components/Contact';
+
 export default function Home() {
+ 
+  
   return (
     <>
-    <div data-scroll-section>
+   
+
+      <section data-scroll-section>
+      <div className='checkscrolltrigle'>Hello World</div>
       <div className='warpper-content hero-section'>
        
         <div className='img-hero-sec'>
@@ -32,7 +40,12 @@ export default function Home() {
       </div>
       <Partners/>
       <Services/>
-     </div>
+      <Gallery/>
+      <Contact/>
+     </section>
+    
+
+   
     
         
     </>
