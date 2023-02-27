@@ -33,7 +33,7 @@
    
     opacity:0;
     transition: 500ms;
-
+    pointer-events: none;
 }
 
 .modal-nav-view .bg-move {
@@ -47,7 +47,8 @@
 }
 .modal-nav-view .bg-move span:nth-child(n) {
     width:100vw;
-    background:rgb(0,0,0,.8);
+    background:var(--primary-color);
+   
     transform:scale(0,1);
 }
 .modal-nav-view .bg-move span:nth-child(1) {
@@ -66,4 +67,71 @@
 .modal-nav-view .detail {
     position:relative;
     z-index:999;
+}
+.modal-nav-view .detail .list-item {
+    width:100vw;
+    height:80vh;
+    display:flex;
+    padding: 3rem 6rem;
+    position: relative;
+    box-sizing: border-box;
+}
+.modal-nav-view .detail .info-company {
+    width:100vw;
+    height:20vh;
+}
+.modal-nav-view .detail .list-item .item-menu,
+.modal-nav-view .detail .list-item .img {
+    width:50%;
+    height:100%;
+   
+    
+    display:flex;
+}
+.modal-nav-view .detail .list-item .item-menu {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.modal-nav-view .detail .list-item .item-menu a {
+    display:flex;
+    height:64px;
+    align-items: center;
+    overflow:hidden;
+  
+}
+.modal-nav-view .detail .list-item .item-menu a p {
+    margin:0;
+    font-family: PoiretOne;
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0.01em;
+    text-align: left;
+    height:fit-content;
+    transform:translateY(100px);
+}
+.modal-nav-view .detail .list-item .img >div {
+    display:block;
+    overflow:hidden;
+    position:relative;
+}
+.imgNavBanner {
+    opacity:0;
+}
+.imgNavBanner:before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgb(0,0,0,.5);
+    z-index:15;
+}
+.modal-nav-view .detail .list-item .img >div img {
+    width:100%;
+    height:auto;
+    display:block;
+    z-index:10;
 }

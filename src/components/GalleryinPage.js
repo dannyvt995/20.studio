@@ -9,7 +9,7 @@ const images = {
     image5: require('.././asset/gallery5.png')
   };
  
-export default function Gallery() {
+export default function GalleryinPage() {
     
    
     

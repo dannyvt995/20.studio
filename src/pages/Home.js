@@ -4,7 +4,7 @@ import img01 from '../asset/img.png'
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import Partners from '../components/Partners';
 import Services from '../components/Services';
-import Gallery from '../components/Gallery';
+import GalleryinPage from '../components/GalleryinPage';
 import Contact from '../components/Contact';
 export default function Home() {
   return (
@@ -32,7 +32,7 @@ export default function Home() {
         </div>
         <Partners />
         <Services />
-        <Gallery />
+        <GalleryinPage />
         <Contact />
       </section>
     </>
