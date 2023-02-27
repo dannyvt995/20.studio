@@ -1,54 +1,13 @@
 import React, { useEffect } from 'react';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import gsap from 'gsap';
-import useLocoScroll from '../hooks/useLocoScroll';
+
 
 export default function Test() {
-  useLocoScroll(true);
+  
 
-  useEffect(() => {
-    // Initialize ScrollTrigger
-    ScrollTrigger.create({
-      trigger: '.block',
-      pin: true,
-      start: 'top top',
-      markers: true,
-      end: 'top bottom',
-      pinSpacing: false,
-      endTrigger: '.end'
-    });
-
-    // Create fade-in animation for .demo-test
-    gsap.from('.demo-test', {
-      opacity: 0,
-      duration: 1,
-      ease: 'power2.inOut',
-      scrollTrigger: {
-        trigger: '.block',
-        start: 'top 80%', // adjust as needed
-        end: '+=50' // adjust as needed
-      }
-    });
-
-    // Create scale animation for .end
-    gsap.from('.end', {
-      scale: 0,
-      duration: 1,
-      ease: 'power2.inOut',
-      scrollTrigger: {
-        trigger: '.block',
-        start: 'top top',
-        end: '+=50' // adjust as needed
-      }
-    });
-    
-    // Cleanup function to revert context
-    return () => ScrollTrigger.getById('.block').kill();
-  }, []);
 
   return (
     <>
-      <div data-scroll-section>
+      <div >
         <div className='block'></div>
         <div className='demo-test'>
           Fugiat occaecat nulla excepteur deserunt. Sunt commodo est dolor qui laboris in dolore mollit eu sit consectetur commodo excepteur. Qui cillum ullamco non ex do labore velit non. Labore ad deserunt exercitation ipsum.

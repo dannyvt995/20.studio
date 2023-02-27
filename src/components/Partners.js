@@ -8,8 +8,8 @@ export default function Partners() {
 
       <div className='warpper-content partners-section'>
         <div className='content'>
-            <h2>Đối Tác Của Chúng Tôi</h2>
-            <p>20Studio vinh dự được đồng hành cùng các nhãn hàng trong nước lẫn quốc tế</p>
+            <h2>Our Partners</h2>
+            <p>20Studio proudly to have chances to work with various brands</p>
         </div>
         <div className='detail'>
             <div>

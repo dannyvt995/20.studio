@@ -15,8 +15,7 @@ export default function Services() {
       },[])
       
     function hoverShow() {
-      const listels = document.querySelectorAll(".item-services-active");
-      console.log(listels)
+      const listels = document.querySelectorAll(".item-services-active a");
       listels.forEach((el) => {
         el.addEventListener('mouseenter', handleMouseEnter);
         el.addEventListener('mouseleave', handleMouseLeave);
@@ -25,71 +24,96 @@ export default function Services() {
     function handleMouseEnter(event) {
       const el = event.currentTarget;
       let siblings = getSiblings(el);
-  
+      let idvid = el.parentNode.getAttribute("data-video-src")
+      console.log(siblings)
+      console.log(document.getElementById(`${idvid}`))
       siblings.forEach((i) => {
         i.classList.add('hidden-for-all')
       })
-      gsap.set(el.childNodes[1], { zIndex: 10, opacity: 1});
-      gsap.set(el.childNodes[2], { zIndex: 5, opacity: 1, scale: 1});
-     // el.childNodes[1].classList.add('active-for-title')
-     // el.childNodes[2].classList.add('active-for-video')
+      el.parentNode.classList.add('active-bg-v')
+  
+      gsap.set(el.parentNode.childNodes[1], { zIndex: 10, opacity: 1});
+      gsap.set(document.getElementById(`${idvid}`), { zIndex: 5, opacity: 1});
     }
   
     function handleMouseLeave(event) {
       const el = event.currentTarget;
       let siblings = getSiblings(el);
+      let idvid = el.parentNode.getAttribute("data-video-src")
       siblings.forEach((i) => {
         i.classList.remove('hidden-for-all')
       })
-      gsap.set(el.childNodes[1], { zIndex: 1, opacity: .5});
-      gsap.set(el.childNodes[2], { zIndex: 0, opacity: 0, scale:.2});
-     // el.childNodes[1].classList.remove('active-for-title')
-      //el.childNodes[2].classList.remove('active-for-video')
+      el.parentNode.classList.remove('active-bg-v')
+      gsap.set(el.parentNode.childNodes[1], { zIndex: 1, opacity: .5});
+     gsap.set(document.getElementById(`${idvid}`), { zIndex: 0, opacity: 0});
     }
+
   return (
     <>
         <div className='services-section'>
             <div className='title'>
-                <h2>Dịch Vụ Của Chúng Tôi</h2>
+                <h2>Our Services</h2>
             </div>
             <div className='detail' id='view-services'>
-                <div className='item-services-active' data-video-src="websites">
-                    <span></span>
-                    <a>Phát Triển Mẫu</a>
-                    <div className='view'>
-                      <video controls preload="auto" autoPlay muted loop>
-                          <source src={vid1} type="video/mp4" />
-                      </video>
-                    </div>
-                </div>
-                <div className="item-services-active" data-video-src="apps">
-                  <span></span>
-                  <a >In & Xử Lí Chất Liệu</a>
-                  <div className='view'>
+                <div className='store-vid'>
+                  <div id='sampledevelop'>
+                    <video controls preload="auto" autoPlay muted loop>
+                        <source src={vid1} type="video/mp4" />
+                    </video>
+                  </div>
+                  <div id='commingsoon'>
                     <video controls preload="auto" autoPlay muted loop>
                         <source src={vid2} type="video/mp4" />
                     </video>
                   </div>
-                </div>
-                <div className='item-services-active' data-video-src="websites">
-                  <span></span>
-                  <a>Thiết Kế Rập</a>
-                  <div className='view'>
+                  <div id='draping'>
                     <video controls preload="auto" autoPlay muted loop>
                         <source src={vid3} type="video/mp4" />
                     </video>
                   </div>
-                </div>
-                <div className='item-services-active' data-video-src="branding">
-                  <span></span>
-                  <a>Sản Xuất</a>
-                  <div className='view'>
+                  <div id='production'>
                     <video controls preload="auto" autoPlay muted loop>
                         <source src={vid1} type="video/mp4" />
                     </video>
                   </div>
                 </div>
-                <div className='item-services-active' data-video-src="apps">
+                <div className='item-services-active' data-video-src="sampledevelop">
+                    <span></span>
+                    <a>Sample Develop</a>
+                   {/*  <div className='view'>
+                      <video controls preload="auto" autoPlay muted loop>
+                          <source src={vid1} type="video/mp4" />
+                      </video>
+                    </div> */}
+                </div>
+                <div className="item-services-active" data-video-src="commingsoon">
+                  <span></span>
+                  <a >Comming Soon</a>
+                 {/*  <div className='view'>
+                    <video controls preload="auto" autoPlay muted loop>
+                        <source src={vid2} type="video/mp4" />
+                    </video>
+                  </div> */}
+                </div>
+                <div className='item-services-active' data-video-src="draping">
+                  <span></span>
+                  <a>Draping</a>
+                 {/*  <div className='view'>
+                    <video controls preload="auto" autoPlay muted loop>
+                        <source src={vid3} type="video/mp4" />
+                    </video>
+                  </div> */}
+                </div>
+                <div className='item-services-active' data-video-src="production">
+                  <span></span>
+                  <a>Production</a>
+                  {/* <div className='view'>
+                    <video controls preload="auto" autoPlay muted loop>
+                        <source src={vid1} type="video/mp4" />
+                    </video>
+                  </div> */}
+                </div>
+               {/*  <div className='item-services-active' data-video-src="apps">
                   <span></span>
                   <a>Tư Vấn</a>
                   <div className='view'>
@@ -97,7 +121,7 @@ export default function Services() {
                         <source src={vid3} type="video/mp4" />
                     </video>
                   </div>
-                  </div>
+                </div> */}
             </div>
        
         </div>  

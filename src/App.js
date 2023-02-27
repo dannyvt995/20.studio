@@ -22,9 +22,9 @@ function App() {
           scroller: '.container',
           scrub: true,
           pin: true,
-          markers:true,
+         // markers:true,
           start: "top top",
-          end: "+=100%"
+          end: "+=200%"
         }
       });
     

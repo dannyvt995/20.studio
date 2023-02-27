@@ -13,7 +13,57 @@
     align-items: center;
     justify-content: center;
     z-index:9999;
+    cursor:pointer;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.navbar .ic-nav-open:focus {
+    transition:200ms;
+    box-shadow: rgb(0 0 0 / 17%) 0px -23px 25px 0px inset, rgb(0 0 0 / 15%) 0px -36px 30px 0px inset, rgb(0 0 0 / 10%) 0px -79px 40px 0px inset, rgb(0 0 0 / 33%) 0px 2px 1px, rgb(0 0 0 / 42%) 0px 4px 2px, rgb(0 0 0 / 38%) 0px 8px 4px, rgb(0 0 0 / 34%) 0px 16px 8px, rgb(0 0 0 / 9%) -2px 10px 16px !important;
 }
 .navbar .ic-nav-open svg {
     color:white;
+}
+
+.modal-nav-view {
+    position:fixed;
+    top:0;
+    right:0;
+    width:100vw;
+    height:100vh;
+   
+    opacity:0;
+    transition: 500ms;
+
+}
+
+.modal-nav-view .bg-move {
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+   
+    z-index:100;
+}
+.modal-nav-view .bg-move span:nth-child(n) {
+    width:100vw;
+    background:rgb(0,0,0,.8);
+    transform:scale(0,1);
+}
+.modal-nav-view .bg-move span:nth-child(1) {
+    position:relative;
+    height: 80vh;
+    transform-origin: right;
+    display:block;
+    border-bottom: 1px solid rgb(225,225,225,.3);
+}
+.modal-nav-view .bg-move span:nth-child(2) {
+    position:relative;
+    height: 20vh;
+    transform-origin: left;
+    display:block;
+}
+.modal-nav-view .detail {
+    position:relative;
+    z-index:999;
 }

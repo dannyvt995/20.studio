@@ -21,7 +21,7 @@ export default function Gallery() {
             <div className='title'>
             <span class="line line-2"></span>
                 <h2>Gallery</h2>
-                <p>Những sản phẩm chúng tôi tự hào giới thiệu</p>
+                <p>Have a look at our selected works that we have done so far</p>
                
             </div>
             <div className='img-gsap-fix'>
