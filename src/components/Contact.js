@@ -32,8 +32,8 @@ export default function Contact() {
                         <div className='nor'>
                             <textarea rows="10" defaultValue="Notes"></textarea>
                         </div>
-                        <div  className='nor'>
-                        <button type='submit'>Send</button>
+                        <div  className='nor button-send'>
+                            <button type='submit'>Send</button>
                         </div>
                      
                     </form>
