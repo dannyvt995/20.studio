@@ -1,19 +1,23 @@
 import React, { useRef, useState } from "react";
 import "../styles/Navbar.css";
 import { SlMenu } from "react-icons/sl";
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import Test from ".././components/Test";
 import Home from ".././pages/Home";
+import Contact from ".././pages/Contact";
+import Gallery from ".././pages/Gallery";
+import Aboutus from ".././pages/Aboutus";
+import Services from ".././pages/Services";
 import gsap from "gsap";
 import { CSSRulePlugin } from "gsap/CSSRulePlugin";
 import ImgNav from "../asset/hero.png";
-
+import logoSm from "../asset/20-studio-white-sm.png"
 export default function Navbar() {
   gsap.registerPlugin(CSSRulePlugin)
   const navDom = useRef(null);
   const bgNav = useRef(null);
   const navItem = useRef(null);
-
+  const imgNavBanner = useRef(null)
   const [isNavOpen, setNavOpen] = useState(false);
   const pseudoImgBannerNav = CSSRulePlugin.getRule(".imgNavBanner:before");
  
@@ -23,6 +27,7 @@ export default function Navbar() {
     let animation;
     if (!isNavOpen) {
       console.log('run nav')
+    
       animation = gsap.timeline({})
         .to(
           navDom.current,
@@ -32,39 +37,54 @@ export default function Navbar() {
           }
         )
         .add("startNavOpen")
-        .to([bgNav.current.children[0], bgNav.current.children[1]], {
-          scaleX: 1,
+        .fromTo([bgNav.current.children[0]],
+          { 
+            xPercent: 100, 
+            duration: 0,
+           
+          }, { 
+            xPercent: 0, 
           duration: 1,
           ease: "power3.inOut",
-        }, "startNavOpen")
+        },"startNavOpen")
+        .fromTo([bgNav.current.children[1]],
+          { 
+            xPercent: -100, 
+            duration: 0,
+           
+          }, { 
+            xPercent: 0, 
+          duration: 1,
+          ease: "power3.inOut",
+        },"<")
 
-        .to(".imgNavBanner",{
-          width: "100%",
-          duration: .5
-        }, "<")
+        .to(
+        [
+          navItem.current.children[0].children,
+          navItem.current.children[1].children,
+          navItem.current.children[2].children,
+          navItem.current.children[3].children,
+        ],
+        {
+          y: 0,
+          duration: 0.5,
+          stagger: 0.2,
+          ease: "ease-in-out",
+        })
+        .to(".imgNavBanner", {
+          opacity:1,
+          delay:.5,
+          duration:.5,
+          ease: "ease-in-out"
+        },"<")
         .to(pseudoImgBannerNav, {
           cssRule: {
-            width: 0,
+            width: "0%"
           },
-          delay: .5,
           duration: .5
-        }, "<")
-        .to(
-          [
-            navItem.current.children[0].children,
-            navItem.current.children[1].children,
-            navItem.current.children[2].children,
-            navItem.current.children[3].children,
-          ],
-          {
-            y: 0,
-         
-            duration: 0.5,
-            stagger: 0.2,
-            ease: "ease-in-out",
-          },
-          "<"
-        );
+        },"<")
+
+
     } else {
       animation = gsap.timeline({})
         .to(
@@ -86,22 +106,31 @@ export default function Navbar() {
           },
           duration: .5
         }, "<")
-        
-        .add("startNavClose")
-        .to(
-          [bgNav.current.children[0], bgNav.current.children[1]], {
-          scaleX: 0,
+        .to(".imgNavBanner", {
+          opacity:0,
+          duration:.5,
+          ease: "ease-in-out"
+        },"<")
+      
+        .to([bgNav.current.children[0]], {
+          xPercent: -100, // move both child elements to the right
           duration: 1,
           pointerEvents: "none",
           ease: "power3.inOut",
-        },"startNavClose")
+        })
+        .to([bgNav.current.children[1]], {
+          xPercent: 100, // move both child elements to the right
+          duration: 1,
+          pointerEvents: "none",
+          ease: "power3.inOut",
+        },"<")
         .to(navDom.current,
-          {
-            opacity: 0,
-            duration: 0.5,
-            pointerEvents: "none",
-            ease: "ease-in-out",
-          }, "<")
+        {
+          opacity: 0,
+          duration: 0.5,
+          pointerEvents: "none",
+          ease: "ease-in-out",
+        }, "<")
 
     }
 
@@ -111,7 +140,60 @@ export default function Navbar() {
       if (!isAnimating) {
         animation.reversed(true);
       }
+     
     };
+  }
+  function closeNav() {
+    setNavOpen(false);
+    let animation;
+    animation = gsap.timeline({})
+        .to(
+          [
+            navItem.current.children[0].children,
+            navItem.current.children[1].children,
+            navItem.current.children[2].children,
+            navItem.current.children[3].children,
+          ],
+          {
+            y:100,
+            duration: 0.3,
+            stagger: 0.05,
+            ease: "ease-in-out",
+          })
+        .to(pseudoImgBannerNav, {
+          cssRule: {
+            width: '100%',
+          },
+          duration: .5
+        }, "<")
+        .to(".imgNavBanner", {
+          opacity:0,
+          duration:.5,
+          ease: "ease-in-out"
+        },"<")
+      
+        .to([bgNav.current.children[0]], {
+          xPercent: -100, // move both child elements to the right
+          duration: 1,
+          pointerEvents: "none",
+          ease: "power3.inOut",
+        })
+        .to([bgNav.current.children[1]], {
+          xPercent: 100, // move both child elements to the right
+          duration: 1,
+          pointerEvents: "none",
+          ease: "power3.inOut",
+        },"<")
+        .to(navDom.current,
+        {
+          opacity: 0,
+          duration: 0.5,
+          pointerEvents: "none",
+          ease: "ease-in-out",
+        }, "<")
+
+    
+
   }
 
   return (
@@ -119,6 +201,10 @@ export default function Navbar() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/aboutus" element={<Aboutus />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <div className="navbar">
         <a onClick={openNav} id="" className="ic-nav-open">
@@ -133,27 +219,39 @@ export default function Navbar() {
         <div className="detail">
           <div className="list-item">
             <div ref={navItem} className="item-menu">
-              <a>
+              <Link to="/aboutus" onClick={closeNav}>
                 <p>About Us</p>
-              </a>
-              <a>
-                <p>Servcies</p>
-              </a>
-              <a>
-                <p>Product</p>
-              </a>
-              <a>
+              </Link>
+              <Link to="/services" onClick={closeNav}>
+                <p>Services</p>
+              </Link>
+              <Link to="/gallery" onClick={closeNav}>
+                <p>Gallery</p>
+              </Link>
+              <Link to="/contact" onClick={closeNav}>
                 <p>Contact</p>
-              </a>
+              </Link>
             </div>
             <div className="img">
               <div className="imgNavBanner">
-                <img src={ImgNav} alt="" />
+                <img ref={imgNavBanner} src={ImgNav} alt="" />
               </div>
             </div>
           </div>
           <div className="info-company">
-            <div>suuport@20studio.com</div>
+            <div className="logo">
+              <Link to="/" onClick={closeNav}><img src={logoSm} alt=""/></Link>
+            </div>
+            <div className="info">
+              <div>
+                <span>+84 354 202 200</span>
+            
+                <span>20studio@contact.com</span>
+                <span>62/193 Lý Chính Thắng, phường 8, quận 3, Thành phố Hồ Chí Minh</span>
+                <span>GGMAP</span>
+              </div>
+               
+            </div>
           </div>
         </div>
       </div>

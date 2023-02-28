@@ -10,7 +10,7 @@ const useLocoScroll = (start) => {
     if (!start) return;
 
     const scrollEl = document.querySelector('.container');
-
+    console.log(`useLocoScroll start!`)
     let locoScroll = new LocomotiveScroll({
       el: scrollEl,
       smooth: true,
@@ -54,6 +54,7 @@ const useLocoScroll = (start) => {
 
     ScrollTrigger.addEventListener('refresh', lsUpdate);
     ScrollTrigger.refresh();
+    console.log(`useLocoScroll complete!`)
   }, [start]);
 };
 

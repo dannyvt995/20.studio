@@ -48,8 +48,8 @@
 .modal-nav-view .bg-move span:nth-child(n) {
     width:100vw;
     background:var(--primary-color);
-   
-    transform:scale(0,1);
+  /*   transform:translateX(100%); */
+  /*   transform:scale(0,1); */
 }
 .modal-nav-view .bg-move span:nth-child(1) {
     position:relative;
@@ -79,14 +79,27 @@
 .modal-nav-view .detail .info-company {
     width:100vw;
     height:20vh;
+    display:flex;
+    padding: 3rem 6rem;
+    box-sizing: border-box;
 }
 .modal-nav-view .detail .list-item .item-menu,
-.modal-nav-view .detail .list-item .img {
+.modal-nav-view .detail .list-item .img,
+.modal-nav-view .detail .info-company .logo,
+.modal-nav-view .detail .info-company .info{
     width:50%;
     height:100%;
-   
-    
     display:flex;
+}
+.modal-nav-view .detail .info-company .logo > a {
+
+}
+.modal-nav-view .detail .info-company .info > div {
+    display:flex;
+    flex-wrap:wrap;
+}
+.modal-nav-view .detail .info-company .info > div span {
+    width:50%;
 }
 .modal-nav-view .detail .list-item .item-menu {
     display:flex;
@@ -98,7 +111,7 @@
     height:64px;
     align-items: center;
     overflow:hidden;
-  
+    cursor:pointer;
 }
 .modal-nav-view .detail .list-item .item-menu a p {
     margin:0;
@@ -117,9 +130,13 @@
     position:relative;
 }
 .imgNavBanner {
+    position:relative;
+    width:100%;
+    height:100%;
     opacity:0;
+    overflow:hidden;
 }
-.imgNavBanner:before{
+ .imgNavBanner:before{
     content:"";
     position:absolute;
     top:0;
@@ -128,10 +145,12 @@
     height:100%;
     background:rgb(0,0,0,.5);
     z-index:15;
-}
+    
+} 
 .modal-nav-view .detail .list-item .img >div img {
     width:100%;
     height:auto;
     display:block;
     z-index:10;
+
 }

@@ -1,6 +1,5 @@
 import React,{useEffect} from 'react'
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
+
 const images = {
     image1: require('.././asset/gallery1.png'),
     image2: require('.././asset/gallery2.png'),
@@ -19,7 +18,7 @@ export default function GalleryinPage() {
         <div className='warpper-content section-gallery'>
        
             <div className='title'>
-            <span class="line line-2"></span>
+            <span className="line line-2"></span>
                 <h2>Gallery</h2>
                 <p>Have a look at our selected works that we have done so far</p>
                

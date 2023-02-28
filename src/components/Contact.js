@@ -22,11 +22,11 @@ export default function Contact() {
                             <input type="text" name="phone" defaultValue="" placeholder='Phone Number' />
                         </div>
                         <div  className='nor'>
-                            <select placeholder='Chọn dịch vụ'>
-                                <option defaultValue="" disabled selected>Select services</option>
-                                <option defaultValue="1">May</option>
-                                <option defaultValue="2">Vá</option>
-                                <option defaultValue="3">Rập</option>
+                            <select defaultValue="" placeholder='Chọn dịch vụ'>
+                                <option value="" disabled selected>Select services</option>
+                                <option value="1">May</option>
+                                <option value="2">Vá</option>
+                                <option value="3">Rập</option>
                             </select>
                         </div>
                         <div className='nor'>

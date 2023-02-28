@@ -6,7 +6,39 @@ import Partners from '../components/Partners';
 import Services from '../components/Services';
 import GalleryinPage from '../components/GalleryinPage';
 import Contact from '../components/Contact';
+import gsap from 'gsap';
 export default function Home() {
+  useEffect(() => {
+    
+    let ctx = gsap.context(() => {
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".section-gallery",
+          scroller: '.container',
+          scrub: true,
+          pin: true,
+         // markers:true,
+          start: "top top",
+          end: "+=200%"
+        }
+      });
+    
+      tl.from(".line-2", {
+        scaleX: 0, 
+        transformOrigin: "left center", 
+        ease: "none"
+      })
+      .from(".img-gsap-fix a", {
+        opacity: 0, 
+        y: 200, 
+        stagger: 0.7,
+        ease: "power2.inOut"
+      },0);
+    
+      });
+      return () => ctx.revert(); // <-- CLEANUP!
+  }, []);
+  
   return (
     <>
       <section data-scroll-section>
