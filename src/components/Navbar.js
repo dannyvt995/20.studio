@@ -17,7 +17,8 @@ export default function Navbar() {
   const navDom = useRef(null);
   const bgNav = useRef(null);
   const navItem = useRef(null);
-  const imgNavBanner = useRef(null)
+  const imgNavBanner = useRef(null);
+  const infoBotNav = useRef(null);
   const [isNavOpen, setNavOpen] = useState(false);
   const pseudoImgBannerNav = CSSRulePlugin.getRule(".imgNavBanner:before");
  
@@ -77,6 +78,10 @@ export default function Navbar() {
           duration:.5,
           ease: "ease-in-out"
         },"<")
+        .to(infoBotNav.current,{
+          opacity:1,
+          duration:.5
+        },"<")
         .to(pseudoImgBannerNav, {
           cssRule: {
             width: "0%"
@@ -111,7 +116,10 @@ export default function Navbar() {
           duration:.5,
           ease: "ease-in-out"
         },"<")
-      
+        .to(infoBotNav.current,{
+          opacity:0,
+          duration:.5
+        },"<")
         .to([bgNav.current.children[0]], {
           xPercent: -100, // move both child elements to the right
           duration: 1,
@@ -147,50 +155,53 @@ export default function Navbar() {
     setNavOpen(false);
     let animation;
     animation = gsap.timeline({})
-        .to(
-          [
-            navItem.current.children[0].children,
-            navItem.current.children[1].children,
-            navItem.current.children[2].children,
-            navItem.current.children[3].children,
-          ],
-          {
-            y:100,
-            duration: 0.3,
-            stagger: 0.05,
-            ease: "ease-in-out",
-          })
-        .to(pseudoImgBannerNav, {
-          cssRule: {
-            width: '100%',
-          },
-          duration: .5
-        }, "<")
-        .to(".imgNavBanner", {
-          opacity:0,
-          duration:.5,
-          ease: "ease-in-out"
-        },"<")
-      
-        .to([bgNav.current.children[0]], {
-          xPercent: -100, // move both child elements to the right
-          duration: 1,
-          pointerEvents: "none",
-          ease: "power3.inOut",
-        })
-        .to([bgNav.current.children[1]], {
-          xPercent: 100, // move both child elements to the right
-          duration: 1,
-          pointerEvents: "none",
-          ease: "power3.inOut",
-        },"<")
-        .to(navDom.current,
-        {
-          opacity: 0,
-          duration: 0.5,
-          pointerEvents: "none",
-          ease: "ease-in-out",
-        }, "<")
+    .to(
+      [
+        navItem.current.children[0].children,
+        navItem.current.children[1].children,
+        navItem.current.children[2].children,
+        navItem.current.children[3].children,
+      ],
+      {
+        y:100,
+        duration: 0.3,
+        stagger: 0.05,
+        ease: "ease-in-out",
+      })
+    .to(pseudoImgBannerNav, {
+      cssRule: {
+        width: '100%',
+      },
+      duration: .5
+    }, "<")
+    .to(".imgNavBanner", {
+      opacity:0,
+      duration:.5,
+      ease: "ease-in-out"
+    },"<")
+    .to(infoBotNav.current,{
+      opacity:0,
+      duration:.5
+    },"<")
+    .to([bgNav.current.children[0]], {
+      xPercent: -100, // move both child elements to the right
+      duration: 1,
+      pointerEvents: "none",
+      ease: "power3.inOut",
+    })
+    .to([bgNav.current.children[1]], {
+      xPercent: 100, // move both child elements to the right
+      duration: 1,
+      pointerEvents: "none",
+      ease: "power3.inOut",
+    },"<")
+    .to(navDom.current,
+    {
+      opacity: 0,
+      duration: 0.5,
+      pointerEvents: "none",
+      ease: "ease-in-out",
+    }, "<")
 
     
 
@@ -220,13 +231,13 @@ export default function Navbar() {
           <div className="list-item">
             <div ref={navItem} className="item-menu">
               <Link to="/aboutus" onClick={closeNav}>
-                <p>About Us</p>
+                <p>Works</p>
               </Link>
               <Link to="/services" onClick={closeNav}>
                 <p>Services</p>
               </Link>
               <Link to="/gallery" onClick={closeNav}>
-                <p>Gallery</p>
+                <p>Story</p>
               </Link>
               <Link to="/contact" onClick={closeNav}>
                 <p>Contact</p>
@@ -238,16 +249,15 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-          <div className="info-company">
+          <div className="info-company" ref={infoBotNav}>
             <div className="logo">
               <Link to="/" onClick={closeNav}><img src={logoSm} alt=""/></Link>
             </div>
-            <div className="info">
+            <div className="info" >
               <div>
                 <span>+84 354 202 200</span>
-            
                 <span>20studio@contact.com</span>
-                <span>62/193 Lý Chính Thắng, phường 8, quận 3, Thành phố Hồ Chí Minh</span>
+                <span>62/193 D.Ly Chinh Thang, P.8, Q.3, HCMC</span>
                 <span>GGMAP</span>
               </div>
                

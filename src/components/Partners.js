@@ -39,15 +39,7 @@ export default function Partners() {
             <div>
                 <img src={PartnesDemo} alt="" />
             </div>
-            <div>
-                <img src={PartnesDemo} alt="" />
-            </div>
-            <div>
-                <img src={PartnesDemo} alt="" />
-            </div>
-            <div>
-                <img src={PartnesDemo} alt="" />
-            </div>
+            
         </div>
 
          

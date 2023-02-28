@@ -1,12 +1,12 @@
 :root {
     --primary-color:#1E1E1E;
-    --w-grid: calc(1400px - 128px);
+    --w-grid: calc(100vw - 128px);
     --w-item-grid : calc(var(--w-grid) / 5);
     --random-column: 0;
 
 }
 .loading-screen {
-    background:var(--primary-color);
+  
     display:flex;
     position:fixed;
     z-index: 99999 !important;
@@ -16,9 +16,26 @@
     left:0;
     align-items: center;
     justify-content: left;
-    font-size:5rem;
+   
     padding-left:3rem;
     overflow:hidden;
+   
+}
+.loading-screen:before {
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background:var(--primary-color);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    z-index:50;
+}
+.loading-screen > div.content {
+    position:relative;
+    z-index:99;
+    font-size:5rem;
 }
 .disable-loadding-screen {
     animation-name: closeLoadingPageAnime;
@@ -33,6 +50,7 @@
 .loading-screen .text-anime {
     display:flex;
     flex-direction: column;
+    overflow:hidden;
   
 }
 .loading-screen span {
@@ -40,6 +58,8 @@
     font-family: "Marcellus";
     height: 120px;
     overflow:hidden;
+    position: relative;
+    top: 240px;
 }
 .loading-screen span p{
     width:fit-content;
@@ -52,6 +72,7 @@
     letter-spacing: 0em;
     text-align: left;
     position: relative;
+   
 }
 
 
@@ -220,12 +241,20 @@ text-align: left;
 }
 .welcome-section {
     overflow:hidden;
-    margin-top:3rem;
+   
 }
-.welcome-section img {
-    width:100%;
+.welcome-section > div {
+    width:500px;
     height:auto;
+    position:relative;
+    overflow:hidden;
+    margin: 0 auto;
+    transform-origin: center;
 }
+.welcome-section > div video {
+    width:100%;
+}
+
 
 
 

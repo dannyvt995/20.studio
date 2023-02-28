@@ -7,9 +7,12 @@ import Services from '../components/Services';
 import GalleryinPage from '../components/GalleryinPage';
 import Contact from '../components/Contact';
 import gsap from 'gsap';
+import vid1 from '../asset/videos/websites.mp4'
+
 export default function Home() {
+  const vidSec = useRef(null)
   useEffect(() => {
-    
+
     let ctx = gsap.context(() => {
       let tl = gsap.timeline({
         scrollTrigger: {
@@ -17,28 +20,45 @@ export default function Home() {
           scroller: '.container',
           scrub: true,
           pin: true,
-         // markers:true,
+          // markers:true,
           start: "top top",
           end: "+=200%"
         }
       });
-    
       tl.from(".line-2", {
-        scaleX: 0, 
-        transformOrigin: "left center", 
+        scaleX: 0,
+        transformOrigin: "left center",
         ease: "none"
       })
       .from(".img-gsap-fix a", {
-        opacity: 0, 
-        y: 200, 
+        opacity: 0,
+        y: 400,
         stagger: 0.7,
         ease: "power2.inOut"
-      },0);
-    
+      }, 0);
+
+
+    /*   let tlvid = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".welcome-section",
+          scroller: '.container',
+          scrub: true,
+          pin: true,
+         // markers:true,
+          start: "top center",
+          end: "+=100%"
+        }
       });
-      return () => ctx.revert(); // <-- CLEANUP!
+      tlvid.to(vidSec.current, {
+        scale: 2,
+    
+        ease: "none"
+      }) */
+   
+    });
+    return () => ctx.revert(); // <-- CLEANUP!
   }, []);
-  
+
   return (
     <>
       <section data-scroll-section>
@@ -60,7 +80,12 @@ export default function Home() {
           </div>
         </div>
         <div className='welcome-section'>
-          <img src={img01} alt='' />
+          <div ref={vidSec}> 
+            <video controls preload="auto" autoPlay muted loop>
+              <source src={vid1} type="video/mp4" />
+            </video>
+          </div>
+      
         </div>
         <Partners />
         <Services />
