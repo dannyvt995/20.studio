@@ -118,7 +118,7 @@
 }
 .modal-nav-view .detail .list-item .item-menu a {
     display:flex;
-    height:64px;
+    height:calc((80vh + 6rem) / 5);
     align-items: center;
     overflow:hidden;
     cursor:pointer;

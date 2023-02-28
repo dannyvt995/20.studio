@@ -2,6 +2,13 @@ import React from 'react'
 
 export default function Aboutus() {
   return (
-    <div>Aboutus</div>
+    <>
+
+<section data-scroll-section>
+<div>Aboutus</div>
+
+</section>
+    </>
+  
   )
 }

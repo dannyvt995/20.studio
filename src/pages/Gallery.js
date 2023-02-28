@@ -3,8 +3,11 @@ import GalleryinPage from '../components/GalleryinPage';
 export default function Gallery() {
   return (
     <>
-      <h2>Gallery</h2>
+     <section data-scroll-section>
+     <h2>Gallery</h2>
       <GalleryinPage/>
+     </section>
+     
     </>
   
   )

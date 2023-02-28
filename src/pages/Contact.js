@@ -2,6 +2,11 @@ import React from 'react'
 
 export default function Contact() {
   return (
-    <div>Contact</div>
+    <>
+       <section data-scroll-section>
+       <div>Contact</div>
+       </section>
+    </>
+ 
   )
 }

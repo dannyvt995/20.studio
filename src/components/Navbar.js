@@ -8,10 +8,14 @@ import Contact from ".././pages/Contact";
 import Gallery from ".././pages/Gallery";
 import Aboutus from ".././pages/Aboutus";
 import Services from ".././pages/Services";
+import SampleDev from ".././pages/SampleDev"
+import PatternMaking from ".././pages/PatternMaking"
 import gsap from "gsap";
+
 import { CSSRulePlugin } from "gsap/CSSRulePlugin";
 import ImgNav from "../asset/hero.png";
 import logoSm from "../asset/20-studio-white-sm.png"
+
 export default function Navbar() {
   gsap.registerPlugin(CSSRulePlugin)
   const navDom = useRef(null);
@@ -21,9 +25,9 @@ export default function Navbar() {
   const infoBotNav = useRef(null);
   const [isNavOpen, setNavOpen] = useState(false);
   const pseudoImgBannerNav = CSSRulePlugin.getRule(".imgNavBanner:before");
- 
+
   function openNav() {
-  
+
     let isAnimating = false;
     let animation;
     if (!isNavOpen) {
@@ -65,6 +69,7 @@ export default function Navbar() {
           navItem.current.children[1].children,
           navItem.current.children[2].children,
           navItem.current.children[3].children,
+          navItem.current.children[4].children
         ],
         {
           y: 0,
@@ -98,6 +103,7 @@ export default function Navbar() {
             navItem.current.children[1].children,
             navItem.current.children[2].children,
             navItem.current.children[3].children,
+            navItem.current.children[4].children
           ],
           {
             y:100,
@@ -161,6 +167,7 @@ export default function Navbar() {
         navItem.current.children[1].children,
         navItem.current.children[2].children,
         navItem.current.children[3].children,
+        navItem.current.children[4].children
       ],
       {
         y:100,
@@ -209,6 +216,7 @@ export default function Navbar() {
 
   return (
     <>
+       
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/test" element={<Test />} />
@@ -216,7 +224,10 @@ export default function Navbar() {
         <Route path="/aboutus" element={<Aboutus />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/patternmaking" element={<PatternMaking />} />
+        <Route path="/sampledev" element={<SampleDev />} />
       </Routes>
+
       <div className="navbar">
         <a onClick={openNav} id="" className="ic-nav-open">
           <SlMenu />
@@ -230,11 +241,14 @@ export default function Navbar() {
         <div className="detail">
           <div className="list-item">
             <div ref={navItem} className="item-menu">
-              <Link to="/aboutus" onClick={closeNav}>
+              <Link to="/gallery" onClick={closeNav}>
                 <p>Works</p>
               </Link>
-              <Link to="/services" onClick={closeNav}>
-                <p>Services</p>
+              <Link to="/sampledev" onClick={closeNav}>
+                <p>Sample Dev</p>
+              </Link>
+              <Link to="/patternmaking" onClick={closeNav}>
+                <p>Pattern Making</p>
               </Link>
               <Link to="/gallery" onClick={closeNav}>
                 <p>Story</p>
@@ -242,6 +256,7 @@ export default function Navbar() {
               <Link to="/contact" onClick={closeNav}>
                 <p>Contact</p>
               </Link>
+ 
             </div>
             <div className="img">
               <div className="imgNavBanner">
