@@ -11,8 +11,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   
     <BrowserRouter>
-      <div id='transition-section'>HIDDEN SECTION TO ANIME</div>
-    <App />
+     
+      <App />
     </BrowserRouter>
    
 

@@ -14,36 +14,59 @@ export default function Home() {
   useLocoScroll(true)
   const navigate = useNavigate();
   const vidSec = useRef(null)
-  const redirectPage = (event) => {
-    console.log(event.target.getAttribute("value"))
-    let s = event.target.getAttribute("value")
-    const targetTrans = document.querySelector('#transition-section')
-    console.log()
-    let rect = (event.target).getBoundingClientRect();
-    console.log(`${(rect.x / window.innerWidth)*100}%`)
-    console.log(`${(rect.y / window.innerHeight)*100}%`)
-    if(s !== null) {
 
+ 
+  useEffect(() => {
+    const transitiondom = document.querySelector('#transition-section')
+    const styletransitiondom = window.getComputedStyle(transitiondom)
+    if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) === null || parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 0) {
+          console.log('Rediect direct')
+          return
+      }else{
+        if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 1){
+              let tl = gsap.timeline({})
+              tl.set(transitiondom, {
+                "--posX": `0%`,
+                "--posY": `0%`,
+                
+              },"openClipPatch")
+              .add("openClipPatch")
+              tl.to(transitiondom, {
+                "--size": `0%`,
+                "--opacity":0,
+                  duration:1
+              })
+          }
+          return
+      }
+  }, [])
+
+
+  const redirectPage = (event) => {
+    console.log(`READY TO REDIRECT: ${event.target.getAttribute("value")}`)
+    const transitiondom = document.querySelector('#transition-section')
+    let s = event.target.getAttribute("value")
+    let rect = (event.target).getBoundingClientRect();
+   // console.log(`${(rect.x / window.innerWidth)*100}%`)
+    //console.log(`${(rect.y / window.innerHeight)*100}%`)
+    if(s !== null) {
+      console.log('RUN rediecrt start')
         let tl = gsap.timeline({onComplete: endTrans})
-        tl.set(targetTrans, {
-          opacity:1,
+        tl.set(transitiondom, {
+          "--opacity":1,
           "--posX": `${(rect.x / window.innerWidth)*100}%`,
           "--posY": `${(rect.y / window.innerHeight)*100}%`,
           
         },"openClipPatch")
         .add("openClipPatch")
-        tl.to(targetTrans, {
+        tl.to(transitiondom, {
           "--size": `150%`,
-            duration:1
+            duration:.7
         }) 
         function endTrans() {
-         
+           console.log('RUN rediecrt click btn child')
             navigate(`${s}`)
-            tl.to(targetTrans, {
-              opacity:1,
-              duration:1
-            }) 
-         
+            return
         }
         
  
@@ -52,7 +75,7 @@ export default function Home() {
     }
   }
   useEffect(() => {
-    console.log(document.querySelector('#transition-section'))
+  
     let ctx = gsap.context(() => {
       let tl = gsap.timeline({
         scrollTrigger: {

@@ -1,7 +1,9 @@
-import React from 'react'
+import React ,{useEffect}from 'react'
 import Contact from '../components/Contact';
 import useLocoScroll from '.././hooks/useLocoScroll';
 import '.././styles/pattern-services-item.css'
+import gsap from 'gsap';
+import { useNavigate } from 'react-router-dom';
 const images = {
     image1: require('.././asset/patternmaking/1.png'),
     image2: require('.././asset/patternmaking/2.png'),
@@ -12,12 +14,71 @@ const images = {
   };
 export default function PatternMaking() {
     useLocoScroll(true)
+    const navigate = useNavigate();
+    useEffect(() => {
+        const transitiondom = document.querySelector('#transition-section')
+        const styletransitiondom = window.getComputedStyle(transitiondom)
+        //console.log(styletransitiondom.getPropertyValue("--opacity"))
+        if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) === null || parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 0) {
+            console.log('Rediect direct')
+            return
+        }else{
+           
+            if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 1){
+                let tl = gsap.timeline({})
+                tl.set(transitiondom, {
+                  "--posX": `0%`,
+                  "--posY": `0%`,
+                  
+                },"openClipPatch")
+                .add("openClipPatch")
+                tl.to(transitiondom, {
+                  "--size": `0%`,
+                  "--opacity":0,
+                    duration:1
+                })
+            }
+            return
+        }
+    }, [])
+    const redirectPage = (event) => {
+        console.log(event.target.getAttribute("value"))
+        let s = event.target.getAttribute("value")
+        const transitiondom = document.querySelector('#transition-section')
+        let rect = (event.target).getBoundingClientRect();
+        console.log(`${(rect.x / window.innerWidth)*100}%`)
+        console.log(`${(rect.y / window.innerHeight)*100}%`)
+        if(s !== null) {
+    
+            let tl = gsap.timeline({onComplete: endTrans})
+            tl.set(transitiondom, {
+            "--opacity":1,
+              "--posX": `${(rect.x / window.innerWidth)*100}%`,
+              "--posY": `${(rect.y / window.innerHeight)*100}%`,
+              
+            },"openClipPatch")
+            .add("openClipPatch")
+            tl.to(transitiondom, {
+              "--size": `150%`,
+                duration:1
+            })
+            function endTrans() {
+                navigate(`${s}`)
+                return
+            }
+        }else{
+          console.log('err redirectPage')
+        }
+      }
+
   return (
 
     <section data-scroll-section>
     <div className='paranoid-section'>
         <div className='hero-pm'>
             <div className='content'>
+            <a value='/' onClick={redirectPage} >GO TO HOME PAGE</a>
+            <a value='/sampledev' onClick={redirectPage} >SAMPLE DEV</a>
                 <h2>FROM SKETCH TO PATTERN</h2>
                 <p>One of the most important part that create an outstanding garment</p>
             </div>

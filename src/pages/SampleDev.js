@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import '.././styles/pattern-services-item.css'
 import useLocoScroll from '.././hooks/useLocoScroll';
 import gsap from 'gsap';
@@ -14,41 +14,61 @@ const images = {
   };
 
 export default function SampleDev() {
- 
+    useLocoScroll(true)
     const navigate = useNavigate();
+    useEffect(() => {
+        const transitiondom = document.querySelector('#transition-section')
+        const styletransitiondom = window.getComputedStyle(transitiondom)
+        //console.log(styletransitiondom.getPropertyValue("--opacity"))
+        if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) === null || parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 0) {
+            console.log('Rediect direct')
+            return
+        }else{
+           
+            if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 1){
+                let tl = gsap.timeline({})
+                tl.set(transitiondom, {
+                  "--posX": `0%`,
+                  "--posY": `0%`,
+                  
+                },"openClipPatch")
+                .add("openClipPatch")
+                tl.to(transitiondom, {
+                  "--size": `0%`,
+                  "--opacity":0,
+                    duration:1
+                })
+            }
+            return
+        }
+    }, [])
+    
+   
     const redirectPage = (event) => {
         console.log(event.target.getAttribute("value"))
         let s = event.target.getAttribute("value")
-        const targetTrans = document.querySelector('#transition-section')
-        console.log()
+        const transitiondom = document.querySelector('#transition-section')
         let rect = (event.target).getBoundingClientRect();
         console.log(`${(rect.x / window.innerWidth)*100}%`)
         console.log(`${(rect.y / window.innerHeight)*100}%`)
         if(s !== null) {
     
             let tl = gsap.timeline({onComplete: endTrans})
-            tl.set(targetTrans, {
-              opacity:1,
+            tl.set(transitiondom, {
+            "--opacity":1,
               "--posX": `${(rect.x / window.innerWidth)*100}%`,
               "--posY": `${(rect.y / window.innerHeight)*100}%`,
               
             },"openClipPatch")
             .add("openClipPatch")
-            tl.to(targetTrans, {
+            tl.to(transitiondom, {
               "--size": `150%`,
                 duration:1
-            }) 
+            })
             function endTrans() {
-             
                 navigate(`${s}`)
-                tl.to(targetTrans, {
-                  opacity:1,
-                  duration:1
-                }) 
-             
+                return
             }
-            
-     
         }else{
           console.log('err redirectPage')
         }
@@ -56,10 +76,11 @@ export default function SampleDev() {
   return (
 
     <section data-scroll-section>
-        <a value='/aboutus' onClick={redirectPage} >About us</a>
+        
     <div className='paranoid-section'>
             <div className='hero-sd'>
                 <div className='content'>
+                <a value='/' onClick={redirectPage} >GO TO HOME PAGE</a>
                     <h2>DESIGNER OF DREAMS</h2>
                     <p>20Studio help customer develop their product into a state of art </p>
                 </div>
