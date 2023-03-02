@@ -1,5 +1,6 @@
 import React from 'react'
 import Contact from '../components/Contact';
+import useLocoScroll from '.././hooks/useLocoScroll';
 import '.././styles/pattern-services-item.css'
 const images = {
     image1: require('.././asset/patternmaking/1.png'),
@@ -10,6 +11,7 @@ const images = {
     image6: require('.././asset/patternmaking/6.png')
   };
 export default function PatternMaking() {
+    useLocoScroll(true)
   return (
 
     <section data-scroll-section>

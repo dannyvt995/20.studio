@@ -1,6 +1,8 @@
 import React from 'react'
 import '.././styles/pattern-services-item.css'
-
+import useLocoScroll from '.././hooks/useLocoScroll';
+import gsap from 'gsap';
+import { useNavigate } from 'react-router-dom';
 const images = {
     image1: require('.././asset/sampledev/1.png'),
     image2: require('.././asset/sampledev/2.png'),
@@ -12,9 +14,49 @@ const images = {
   };
 
 export default function SampleDev() {
+ 
+    const navigate = useNavigate();
+    const redirectPage = (event) => {
+        console.log(event.target.getAttribute("value"))
+        let s = event.target.getAttribute("value")
+        const targetTrans = document.querySelector('#transition-section')
+        console.log()
+        let rect = (event.target).getBoundingClientRect();
+        console.log(`${(rect.x / window.innerWidth)*100}%`)
+        console.log(`${(rect.y / window.innerHeight)*100}%`)
+        if(s !== null) {
+    
+            let tl = gsap.timeline({onComplete: endTrans})
+            tl.set(targetTrans, {
+              opacity:1,
+              "--posX": `${(rect.x / window.innerWidth)*100}%`,
+              "--posY": `${(rect.y / window.innerHeight)*100}%`,
+              
+            },"openClipPatch")
+            .add("openClipPatch")
+            tl.to(targetTrans, {
+              "--size": `150%`,
+                duration:1
+            }) 
+            function endTrans() {
+             
+                navigate(`${s}`)
+                tl.to(targetTrans, {
+                  opacity:1,
+                  duration:1
+                }) 
+             
+            }
+            
+     
+        }else{
+          console.log('err redirectPage')
+        }
+      }
   return (
 
     <section data-scroll-section>
+        <a value='/aboutus' onClick={redirectPage} >About us</a>
     <div className='paranoid-section'>
             <div className='hero-sd'>
                 <div className='content'>

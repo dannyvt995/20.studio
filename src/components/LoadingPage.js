@@ -12,13 +12,13 @@ export default function LoadingPage() {
   const TIME_ACTION = (TIME_TOTAL_AVERAGEL * 1000) + 6000
   const location = useLocation();
 
-  const isLoadingPageVisible = location.pathname === '/';
+ 
 
 
   const colorsLine = ["rgba(255, 255, 255, 1)", "rgba(255, 255, 255, 0.36)", "rgba(255, 255, 255, 0.18)", "rgba(255, 255, 255, 0.12)"];
   useEffect(() => {
-    setLoadingPageVisible(isLoadingPageVisible)
-    if(loadingPageVisible == true) {
+  
+   
       console.log(loadingPageVisible)
       const listspan = document.querySelectorAll(".loading-screen .text-anime span")
       const listp = document.querySelectorAll(".loading-screen .text-anime span p")
@@ -140,7 +140,7 @@ export default function LoadingPage() {
           },"closeScreen")
         });
       return () => ctx.revert(); // <-- CLEANUP!
-    }
+  
 
   }, [])
   function closeLoadingPage() {

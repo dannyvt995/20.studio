@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef,useState } from 'react'
 import '.././styles/Home.css'
 import img01 from '../asset/img.png'
 import { AiOutlineArrowRight } from 'react-icons/ai';
@@ -8,11 +8,51 @@ import GalleryinPage from '../components/GalleryinPage';
 import Contact from '../components/Contact';
 import gsap from 'gsap';
 import vid1 from '../asset/videos/websites.mp4'
-
+import useLocoScroll from '.././hooks/useLocoScroll';
+import { Link, redirect,useNavigate } from 'react-router-dom';
 export default function Home() {
+  useLocoScroll(true)
+  const navigate = useNavigate();
   const vidSec = useRef(null)
-  useEffect(() => {
+  const redirectPage = (event) => {
+    console.log(event.target.getAttribute("value"))
+    let s = event.target.getAttribute("value")
+    const targetTrans = document.querySelector('#transition-section')
+    console.log()
+    let rect = (event.target).getBoundingClientRect();
+    console.log(`${(rect.x / window.innerWidth)*100}%`)
+    console.log(`${(rect.y / window.innerHeight)*100}%`)
+    if(s !== null) {
 
+        let tl = gsap.timeline({onComplete: endTrans})
+        tl.set(targetTrans, {
+          opacity:1,
+          "--posX": `${(rect.x / window.innerWidth)*100}%`,
+          "--posY": `${(rect.y / window.innerHeight)*100}%`,
+          
+        },"openClipPatch")
+        .add("openClipPatch")
+        tl.to(targetTrans, {
+          "--size": `150%`,
+            duration:1
+        }) 
+        function endTrans() {
+         
+            navigate(`${s}`)
+            tl.to(targetTrans, {
+              opacity:1,
+              duration:1
+            }) 
+         
+        }
+        
+ 
+    }else{
+      console.log('err redirectPage')
+    }
+  }
+  useEffect(() => {
+    console.log(document.querySelector('#transition-section'))
     let ctx = gsap.context(() => {
       let tl = gsap.timeline({
         scrollTrigger: {
@@ -75,7 +115,7 @@ export default function Home() {
             </div>
             <div className='more'>
               <p>We believe our industry is blinded by numbers. While buying decisions are based on emotion.</p>
-              <a>About us <AiOutlineArrowRight /></a>
+              <a value='/sampledev' onClick={redirectPage} >About us <AiOutlineArrowRight /></a>
             </div>
           </div>
         </div>
@@ -87,7 +127,7 @@ export default function Home() {
           </div>
       
         </div>
-        <Partners />
+        <Partners/>
         <Services />
         <GalleryinPage />
         <Contact />

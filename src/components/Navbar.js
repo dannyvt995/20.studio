@@ -1,16 +1,10 @@
 import React, { useRef, useState } from "react";
 import "../styles/Navbar.css";
 import { SlMenu } from "react-icons/sl";
-import { Link, Route, Routes } from "react-router-dom";
-import Test from ".././components/Test";
-import Home from ".././pages/Home";
-import Contact from ".././pages/Contact";
-import Gallery from ".././pages/Gallery";
-import Aboutus from ".././pages/Aboutus";
-import Services from ".././pages/Services";
-import SampleDev from ".././pages/SampleDev"
-import PatternMaking from ".././pages/PatternMaking"
+import { Link} from "react-router-dom";
+
 import gsap from "gsap";
+import LoadingPage from '.././components/LoadingPage';
 
 import { CSSRulePlugin } from "gsap/CSSRulePlugin";
 import ImgNav from "../asset/hero.png";
@@ -217,17 +211,8 @@ export default function Navbar() {
   return (
     <>
        
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/aboutus" element={<Aboutus />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/patternmaking" element={<PatternMaking />} />
-        <Route path="/sampledev" element={<SampleDev />} />
-      </Routes>
-
+      
+ 
       <div className="navbar">
         <a onClick={openNav} id="" className="ic-nav-open">
           <SlMenu />
