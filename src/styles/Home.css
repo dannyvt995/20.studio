@@ -3,7 +3,7 @@
     --w-grid: calc(100vw - 128px);
     --w-item-grid : calc(var(--w-grid) / 5);
     --random-column: 0;
-
+    --margin-desktop: 64px;
 }
 .loading-screen {
   

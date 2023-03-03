@@ -53,9 +53,9 @@ export default function PatternMaking() {
             let tl = gsap.timeline({onComplete: endTrans})
             tl.set(transitiondom, {
             "--opacity":1,
-              "--posX": `${(rect.x / window.innerWidth)*100}%`,
-              "--posY": `${(rect.y / window.innerHeight)*100}%`,
-              
+            "--posX": `${(rect.x / window.innerWidth)*100}%`,
+            "--posY": `${(rect.y / window.innerHeight)*100}%`,
+            
             },"openClipPatch")
             .add("openClipPatch")
             tl.to(transitiondom, {
@@ -75,6 +75,7 @@ export default function PatternMaking() {
 
     <section data-scroll-section>
     <div className='paranoid-section'>
+
         <div className='hero-pm'>
             <div className='content'>
             <a value='/' onClick={redirectPage} >GO TO HOME PAGE</a>
@@ -85,6 +86,7 @@ export default function PatternMaking() {
             <div className='img'><img src={images.image1} alt="" /></div>
         </div>
 
+
         <div className='item-services key-pm-move01'>
             <div className='content'>
                 <h2>Brainstorm</h2>
@@ -92,6 +94,8 @@ export default function PatternMaking() {
             </div>
             <div className='img'><img src={images.image4} alt="" /></div>
         </div>
+
+
         <div className='item-services key-pm-move02'>
             <div className='content'>
                 <h2>Transfer design into fabric patterns</h2>
@@ -99,6 +103,8 @@ export default function PatternMaking() {
             </div>
             <div className='img'><img src={images.image5} alt="" /></div>
         </div>
+
+
         <div className='item-services key-pm-move03'>
             <div className='content'>
                 <h2>Build It, Fix it, Make it Perfect</h2>
@@ -106,12 +112,18 @@ export default function PatternMaking() {
             </div>
             <div className='img'><img src={images.image2} alt="" /></div>
         </div>
+
+
         <div className='item-services key-pm-move04'>
             <div className='content'><h2>SEE OUR WORK</h2></div>
             <div className='img'><img src={images.image6} alt="" /></div>
         </div>
     </div>
+
+
     <Contact/>
+
+
     </section>
 
   )
