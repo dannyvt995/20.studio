@@ -14,10 +14,17 @@ const images = {
     image6: require('.././asset/patternmaking/6.png')
   };
 export default function PatternMaking() {
-    useLocoScroll(true)
+    //useLocoScroll(true)
     const navigate = useNavigate();
     const { redirectPage } = usePageTransition();
 
+    useEffect(() => {
+        const seeourworkDom = document.querySelector('#see-our-work')
+        seeourworkDom.addEventListener("click", (e) => {
+            console.log(e.target)
+        })
+    },[])
+    
   return (
 
     <section data-scroll-section>
@@ -61,7 +68,7 @@ export default function PatternMaking() {
         </div>
 
 
-        <div className='item-services key-pm-move04'>
+        <div className='item-services key-pm-move04' id="see-our-work">
             <div className='content'><h2>SEE OUR WORK</h2></div>
             <div className='img'><img src={images.image6} alt="" /></div>
         </div>

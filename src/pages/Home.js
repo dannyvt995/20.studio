@@ -13,7 +13,7 @@ import usePageTransition from '.././hooks/usePageTransition';
 
 
 export default function Home() {
-  useLocoScroll(true)
+//  useLocoScroll(true)
   const vidSec = useRef(null)
   const { redirectPage } = usePageTransition();
  

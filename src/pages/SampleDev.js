@@ -15,10 +15,8 @@ const images = {
   };
 
 export default function SampleDev() {
-    useLocoScroll(true)
+   // useLocoScroll(true)
     const { redirectPage } = usePageTransition();
-    
- 
     
   return (
 
