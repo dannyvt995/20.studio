@@ -165,7 +165,7 @@ export default function Home() {
       
         </div>
         <Partners/>
-        <Services />
+        <Services/>
         <GalleryinPage />
         <Contact />
       </section>
