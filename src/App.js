@@ -1,5 +1,5 @@
 
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState, useEffect, lazy, Suspense, useRef } from 'react'
 import './styles/App.css';
 import './libs/locomotive-scroll.css';
 import Navbar from './components/Navbar';
@@ -21,6 +21,7 @@ const Test = lazy(() => import("./components/Test"));
 function App() {
   // useLocoScroll(true)
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const delay = setTimeout(() => {
       setIsLoading(false);
@@ -33,7 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={
           <>
-            <div id='transition-section'>HIDDEN SECTION TO ANIME</div>
+            <div id='transition-section'><h2></h2></div>
             <section className='container'>
               <Navbar />
               <Home />
@@ -62,7 +63,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/patternmaking" element={
           <>
-            <div id='transition-section'>HIDDEN SECTION TO ANIME</div>
+            <div id='transition-section'><h2></h2></div>
             <section className='container'>
               <Navbar />
               <PatternMaking />
@@ -72,7 +73,7 @@ function App() {
         }/>
         <Route path="/sampledev" element={
           <>
-            <div id='transition-section'>HIDDEN SECTION TO ANIME</div>
+            <div id='transition-section'><h2></h2></div>
             <section className='container'>
               <Navbar />
               <SampleDev />

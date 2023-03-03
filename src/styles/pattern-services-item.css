@@ -261,13 +261,9 @@
 .list-detail-step {
     margin: 0 var(--margin-desktop);
 }
-
-
-
-
 .list-detail-step > div {
     padding-right:0;
-    width:80%;
+    width:70vw;
     margin: auto 0 auto auto;
 }
 .list-detail-step > div > ul {
@@ -346,5 +342,3 @@
 .key-pm-move04 {
     height:30vh;
 }
-
-

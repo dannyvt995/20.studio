@@ -3,6 +3,7 @@ import '.././styles/pattern-services-item.css'
 import useLocoScroll from '.././hooks/useLocoScroll';
 import gsap from 'gsap';
 import { useNavigate } from 'react-router-dom';
+import usePageTransition from '../hooks/usePageTransition.js'
 const images = {
     image1: require('.././asset/sampledev/1.png'),
     image2: require('.././asset/sampledev/2.png'),
@@ -15,64 +16,10 @@ const images = {
 
 export default function SampleDev() {
     useLocoScroll(true)
-    const navigate = useNavigate();
-    useEffect(() => {
-        const transitiondom = document.querySelector('#transition-section')
-        const styletransitiondom = window.getComputedStyle(transitiondom)
-        //console.log(styletransitiondom.getPropertyValue("--opacity"))
-        if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) === null || parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 0) {
-            console.log('Rediect direct')
-            return
-        }else{
-           
-            if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 1){
-                let tl = gsap.timeline({})
-                tl.set(transitiondom, {
-                  "--posX": `0%`,
-                  "--posY": `0%`,
-                  
-                },"openClipPatch")
-                .add("openClipPatch")
-                tl.to(transitiondom, {
-                  "--size": `0%`,
-                  "--opacity":0,
-                    duration:1
-                })
-            }
-            return
-        }
-    }, [])
+    const { redirectPage } = usePageTransition();
     
-   
-    const redirectPage = (event) => {
-        console.log(event.target.getAttribute("value"))
-        let s = event.target.getAttribute("value")
-        const transitiondom = document.querySelector('#transition-section')
-        let rect = (event.target).getBoundingClientRect();
-        console.log(`${(rect.x / window.innerWidth)*100}%`)
-        console.log(`${(rect.y / window.innerHeight)*100}%`)
-        if(s !== null) {
+ 
     
-            let tl = gsap.timeline({onComplete: endTrans})
-            tl.set(transitiondom, {
-            "--opacity":1,
-              "--posX": `${(rect.x / window.innerWidth)*100}%`,
-              "--posY": `${(rect.y / window.innerHeight)*100}%`,
-              
-            },"openClipPatch")
-            .add("openClipPatch")
-            tl.to(transitiondom, {
-              "--size": `150%`,
-                duration:1
-            })
-            function endTrans() {
-                navigate(`${s}`)
-                return
-            }
-        }else{
-          console.log('err redirectPage')
-        }
-      }
   return (
 
     <section data-scroll-section>
@@ -81,6 +28,7 @@ export default function SampleDev() {
             <div className='hero-sd'>
                 <div className='content'>
                 <a value='/' onClick={redirectPage} >GO TO HOME PAGE</a>
+                <a value='/patternmaking' onClick={redirectPage} >patternmaking</a>
                     <h2>DESIGNER OF DREAMS</h2>
                     <p>20Studio help customer develop their product into a state of art </p>
                 </div>
@@ -104,7 +52,8 @@ export default function SampleDev() {
             </div>
             <div className='list-detail-step'>
                 <div>
-                    <ul>
+                    <ul className='ulhover-wrapper-sd'>
+                        <li className='tag-move'></li>
                         <li>Heat sealing</li>
                         <li>Laser cuts</li>
                         <li>Machine embroidery</li>

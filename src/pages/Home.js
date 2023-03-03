@@ -9,20 +9,22 @@ import Contact from '../components/Contact';
 import gsap from 'gsap';
 import vid1 from '../asset/videos/websites.mp4'
 import useLocoScroll from '.././hooks/useLocoScroll';
-import { Link, redirect,useNavigate } from 'react-router-dom';
+import usePageTransition from '.././hooks/usePageTransition';
+
+
 export default function Home() {
   useLocoScroll(true)
-  const navigate = useNavigate();
   const vidSec = useRef(null)
-
+  const { redirectPage } = usePageTransition();
  
-  useEffect(() => {
+  /* useEffect(() => {
     const transitiondom = document.querySelector('#transition-section')
     const styletransitiondom = window.getComputedStyle(transitiondom)
     if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) === null || parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 0) {
           console.log('Rediect direct')
           return
       }else{
+
         if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 1){
               let tl = gsap.timeline({})
               tl.set(transitiondom, {
@@ -34,13 +36,16 @@ export default function Home() {
               tl.to(transitiondom, {
                 "--size": `0%`,
                 "--opacity":0,
-                  duration:1
+                  ease: "power4.out",duration:1
               })
           }
           return
       }
+      function afterendTrans() {
+        transitiondom.childNodes[0].innerHTML = '';
+    }
   }, [])
-
+  
 
   const redirectPage = (event) => {
     console.log(`READY TO REDIRECT: ${event.target.getAttribute("value")}`)
@@ -51,6 +56,11 @@ export default function Home() {
     //console.log(`${(rect.y / window.innerHeight)*100}%`)
     if(s !== null) {
       console.log('RUN rediecrt start')
+
+      const matchingPatches = dataurl.urlname.filter(item => item.patch === s);
+      matchingPatches.forEach(item => redirectNow(item.name));
+      function redirectNow(namepage) {
+        transitiondom.childNodes[0].innerHTML = `${namepage}`;
         let tl = gsap.timeline({onComplete: endTrans})
         tl.set(transitiondom, {
           "--opacity":1,
@@ -61,11 +71,13 @@ export default function Home() {
         .add("openClipPatch")
         tl.to(transitiondom, {
           "--size": `150%`,
-            duration:.7
-        }) 
+            ease: "power4.out",duration:1
+        })
+      }
+    
         function endTrans() {
            console.log('RUN rediecrt click btn child')
-            navigate(`${s}`)
+           navigate(`${s}`)
             return
         }
         
@@ -73,7 +85,9 @@ export default function Home() {
     }else{
       console.log('err redirectPage')
     }
-  }
+  } */
+
+
   useEffect(() => {
   
     let ctx = gsap.context(() => {
@@ -138,7 +152,7 @@ export default function Home() {
             </div>
             <div className='more'>
               <p>We believe our industry is blinded by numbers. While buying decisions are based on emotion.</p>
-              <a value='/sampledev' onClick={redirectPage} >About us <AiOutlineArrowRight /></a>
+              <a value='/sampledev' onClick={(event) => redirectPage(event)} >About us <AiOutlineArrowRight /></a>
             </div>
           </div>
         </div>
