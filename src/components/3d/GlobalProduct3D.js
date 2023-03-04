@@ -1,105 +1,170 @@
 
 import React, { useRef, useState, useEffect } from "react";
-import { useFrame, useThree, Html } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from 'three';
-import { MeshBufferGeometry } from '@react-three/fiber';
+import gsap, { Power2 } from "gsap";
 
-import { CSS3DObject, CSS3DRenderer } from 'three/examples/jsm/renderers/CSS3DRenderer'
-const images = [
-  require('../.././asset/gallery/1.jpg'),
-  require('../.././asset/gallery/2.jpg'),
-  require('../.././asset/gallery/4.jpg'),
-  require('../.././asset/gallery/7.jpg'),
-  require('../.././asset/gallery/9.jpg'),
-  require('../.././asset/gallery/3.png'),
-  require('../.././asset/gallery/5.png'),
-  require('../.././asset/gallery/8.png'),
-  require('../.././asset/gallery/53.png'),
-  require('../.././asset/gallery/b.png'),
-  require('../.././asset/gallery/bn.png'),
-  require('../.././asset/gallery/d.png'),
-  require('../.././asset/gallery/dg.png'),
-  require('../.././asset/gallery/e.png'),
-  require('../.././asset/gallery/fg.png'),
-  require('../.././asset/gallery/fw.png'),
-  require('../.././asset/gallery/h.png'),
-  require('../.././asset/gallery/j.png'),
-  require('../.././asset/gallery/js.png'),
-  require('../.././asset/gallery/n.png'),
-  require('../.././asset/gallery/nd.png'),
-  require('../.././asset/gallery/q.png'),
-  require('../.././asset/gallery/r.png'),
-  require('../.././asset/gallery/rt.png'),
-];
 function GlobalProduct3D() {
   const { gl, scene, camera } = useThree();
   const vector = new THREE.Vector3();
-
-  const targets = [];
+  let mesh
+  const [targets, setTargets] = useState([]);
   const groupRef = useRef();
   const COUNT_DOM = 10;
-
-  const renderer = new CSS3DRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.domElement.style.position = "absolute";
-  renderer.domElement.style.pointerEvents = 'none';
-  renderer.domElement.style.top = 0;
-  renderer.camera = camera;
-  document.getElementById("container").appendChild(renderer.domElement);
-
-  useFrame(() => {
-    renderer.render(groupRef.current, camera);
-  });
-
+  const mouse = new THREE.Vector2();
+  const raycaster = new THREE.Raycaster();
+  const originalPositions = {}
+  const rotationPositions = {}
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
   useEffect(() => {
     console.log('general Mesh')
-    const radius = 800;
-    const sphereGeometry = new THREE.SphereGeometry(5, 32, 32);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const radius = 100;
+    /*  const sphereGeometry = new THREE.SphereGeometry(50, 10,10);
+    const material = new THREE.MeshBasicMaterial({ wireframe: true,opacity:.2});
+
     const sphereMesh = new THREE.Mesh(sphereGeometry, material);
-    sphereMesh.position.set(0, 0, 0);
-    if (groupRef.current) {
-      groupRef.current.add(sphereMesh);
-    }
+    sphereMesh.position.set(0, 0, 0); */
+ 
+   
 
-    for (let i = 0, l = COUNT_DOM; i < l; i++) {
-      let phi = i * 0.4;
+    for (let i = 2; i < 8 ; i++) {
+      let phi = i * 0.35 ;
       for (let to = 0; to < 5; to++) {
-        let theta = to * 0.4;
+        let theta = -(to * 0.5) - 8.4;
 
-        const element = document.createElement("div");
-        element.className = "element";
-        element.style.width = "300px";
-        element.style.height = "auto";
-    
-        element.style.overflow = "hidden";
+       const geometry =new THREE.PlaneGeometry( 20, 20 );
+       const material = new THREE.MeshNormalMaterial({side: THREE.DoubleSide});
+       mesh = new THREE.Mesh( geometry, material, 50 )
+       mesh.position.setFromSphericalCoords(radius, phi, theta);
+       vector.copy(mesh.position).multiplyScalar(2);
+       mesh.lookAt(vector);
 
-        const elImg = document.createElement('img')
-        elImg.className= 'img--item'
-        elImg.src= images[randomInt(0,20)]
-        elImg.style.maxWidth = "100%"
-        elImg.style.height ="auto"
-        element.appendChild(elImg)
+       targets.push(mesh)
+/*        if (groupRef.current) {
+       groupRef.current.add(mesh);
+        //groupRef.current.add(sphereMesh);
+       } */
 
-        const objectCSS = new CSS3DObject(element);
-        objectCSS.position.setFromSphericalCoords(radius, phi, theta);
-        vector.copy(objectCSS.position).multiplyScalar(2);
-        objectCSS.lookAt(vector);
-
-        const object3D = new THREE.Object3D();
-        object3D.position.setFromSphericalCoords(radius, phi, theta);
-        object3D.add(objectCSS);
-
-        sphereMesh.add(object3D);
       }
     }
+    console.log(targets)
+    console.log(groupRef.current)
+
+   setTargets(targets);
+
+
+     // Add event listener to listen for mouse movement
+     window.addEventListener('click', handleClickChildMesh);
+
+     // Return cleanup function to remove event listener
+     return () => {
+      window.removeEventListener('click', handleClickChildMesh);
+
+     }
   }, []);
 
-  return <group ref={groupRef}></group>;
+
+
+  const handleClickChildMesh = (event) => {
+ 
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(
+        groupRef.current.children,
+        true
+      );
+  
+      
+
+      if (intersects.length > 0) {
+        console.log(originalPositions,rotationPositions)
+        let objIntersects = intersects[0].object
+        let uuid = intersects[0].object.uuid
+        console.warn('CLICKON')
+        console.log(`Click ID: ${uuid}`)
+      //  console.log(originalPositions)
+        console.log(originalPositions.hasOwnProperty(`${uuid}`))
+        if (originalPositions.hasOwnProperty(`${uuid}`) == true && rotationPositions.hasOwnProperty(`${uuid}`) == true) {
+          console.log('exsist')
+          if(objIntersects.position.x == 0) {
+            console.log(rotationPositions)
+            runOldPos(objIntersects,uuid,originalPositions,rotationPositions)
+       
+          }
+        }else{
+          console.log('NOT exsist')
+          console.log(originalPositions,rotationPositions)
+   
+          originalPositions[`${uuid}`] = {...objIntersects.position}
+          rotationPositions[`${uuid}`] = {...objIntersects.rotation}
+          runNewPos(objIntersects,uuid,originalPositions,rotationPositions)
+        }
+      }else{
+        console.warn('err')
+      }
+  };
+  function runOldPos(objIntersects,uuid,originalPositions,rotationPositions) {
+    gsap.to(objIntersects.position, {
+      x: originalPositions[uuid].x,
+      y: originalPositions[uuid].y,
+      z: originalPositions[uuid].z,
+      ease: Power2.easeInOut,
+      duration: 1.5
+    });
+    gsap.to(objIntersects.rotation, {
+      x: rotationPositions[uuid].x,
+      y: rotationPositions[uuid].y,
+      z: rotationPositions[uuid].z,
+      ease: Power2.easeInOut,
+      duration: 1.5
+    });
+  }
+
+  function runNewPos(objIntersects,uuid,originalPositions,rotationPositions) {
+    gsap.to(objIntersects.position, {
+      x: 0,
+      y: 0,
+      z: 20,
+      ease: Power2.easeInOut,
+      duration: 1
+    });
+
+    gsap.to(objIntersects.rotation, {
+      x: 0,
+      y: 0,
+      z: 0,
+      ease: Power2.easeInOut,
+      duration: .7
+    });
+    
+  }
+  useFrame(() => {
+   
+    if(camera.position.z > 50) {
+      camera.position.z -=50
+    }else{
+      return
+    }
+  },[]);
+  
+
+ 
+  return <group ref={groupRef} onClick={handleClickChildMesh}>
+       {targets.map((mesh, index) => (
+        <mesh
+          key={index}
+          geometry={mesh.geometry}
+          material={mesh.material}
+          position={[mesh.position.x, mesh.position.y, mesh.position.z]}
+          rotation={[mesh.rotation.x, mesh.rotation.y, mesh.rotation.z]}
+        />
+      ))}
+  </group>;
 }
 
 export default GlobalProduct3D
