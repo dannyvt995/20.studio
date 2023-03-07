@@ -1,0 +1,135 @@
+.services-section-inpage {
+    max-width:100%;
+    border:3px solid white;
+    height:100vh;
+    
+}
+.services-section-inpage .title {
+    position:relative;
+}
+.services-section-inpage .title h2 {
+    font-family: NVNValky;
+    font-size: 10vh;
+    line-height: 100%;
+    text-align: left;
+   margin:64px 0 64px 64px;
+}
+.services-section-inpage .title a {
+    display:block;
+    font-family: PoiretOne;
+    
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0.01em;
+    text-align: left;
+    margin: 0 2rem;
+    position:absolute;
+    top:50%;
+    right:0;
+    transform:translateY(-50%);
+}
+.services-section-inpage .title a:after {
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:2px;
+    background:white;
+}
+.services-section-inpage span {
+    width:100%;
+    height:5px;
+    display:block;
+    background:white;
+    transform:scale(0,1);
+}
+.services-section-inpage .item {
+    display:flex;
+    padding: 0 64px;
+    justify-content: space-between;
+}
+.services-section-inpage .item > a {
+    width: calc(100vw / 3.4);
+    height: calc(100vh - (32px + 128px + 128px ));
+    background:green;
+    display:block;
+}
+
+
+
+
+.section-intro-vid {
+    width:100%;
+    position:relative;
+    height:150vh;
+}
+.section-intro-vid .vid {
+    position:absolute;
+    width:calc(100vw - 128px);
+    height:100vh;
+    left:50%;
+    transform:translateX(-50%);
+    display:block;
+    background:green;
+    transform-origin: center;
+}
+.section-intro-vid span {
+    position:absolute;
+    right:0;
+    bottom:0;
+    transform:translateY(-50%);
+
+    background:white;
+    color:gray;
+    font-family: NVNValky;
+    font-size: 90px;
+    font-style: italic;
+
+    line-height: 120%;
+    letter-spacing: 0.01em;
+    margin: 0 64px;
+    text-align: center;
+
+}
+
+/* hero */
+/* .section-hero {
+    max-width:100%;
+    height:200vh;
+    position:relative;
+    margin: 0 64px;
+}
+.section-hero .img-bg {
+    width:100%;
+    height:100vh;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:88;
+    overflow:hidden;
+}
+.section-hero .img-bg img {
+    max-width:100%;
+    height:auto;
+}
+.section-hero .title {
+    position:relative;
+    width:50%;
+    height:100vh;
+    display:block;
+    z-index:99;
+    margin: 0 0 0 auto;
+    background:gray;
+}
+
+.section-hero .title h2 {
+    font-family: NVNValky;
+font-size: 100px;
+font-weight: 400;
+line-height: 295px;
+letter-spacing: 0.01em;
+text-align: right;
+    margin: 0;
+} */

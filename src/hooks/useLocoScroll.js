@@ -43,7 +43,7 @@ const useLocoScroll = (start) => {
           width: window.innerWidth,
           height: window.innerHeight,
         };
-      },
+      }
     });
 
     const lsUpdate = () => {

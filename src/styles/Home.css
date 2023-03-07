@@ -269,7 +269,7 @@ text-align: left;
     margin-top:30vh;
 }
 .partners-section .content h2 {
-    font-family: Marcellus;
+    font-family: NVNValky;
     font-size: 48px;
     font-weight: 400;
     line-height: 75px;
@@ -329,7 +329,7 @@ text-align: left;
     position:relative;
 }
 .services-section .title h2 {
-    font-family: Marcellus;
+    font-family: NVNValky;
     font-size: 48px;
     font-weight: 400;
     line-height: 100%;
@@ -353,7 +353,7 @@ text-align: left;
     left:0;
 }
 .services-section .detail>  div a {
-    font-family: Marcellus;
+    font-family: NVNValky;
     font-size: 95px;
     font-weight: 400;
     letter-spacing: 0.01em;
@@ -484,7 +484,7 @@ text-align: left;
    
  }
  .section-gallery .title h2 {
-    font-family: Marcellus;
+    font-family: NVNValky;
 font-size: 48px;
 font-weight: 400;
 line-height: 75px;
@@ -559,7 +559,7 @@ text-align:center;
     margin: 0 auto;
  }
  .contact-section .title h2 {
-    font-family: Marcellus;
+    font-family: NVNValky;
     font-size: 96px;
     font-weight: 700;
     line-height: 116px;

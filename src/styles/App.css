@@ -9,5 +9,13 @@
   url(".././fonts/PoiretOne-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "NVNValky";
+  src: local("NVNValky"),
+  url(".././fonts/ValkyVH/MTDValkyBold.otf") format("truetype");
+}
+
+
+
 
 

@@ -56,20 +56,13 @@ function GlobalProduct3D() {
    setTargets(targets);
 
 
-     // Add event listener to listen for mouse movement
-     window.addEventListener('click', handleClickChildMesh);
-
-     // Return cleanup function to remove event listener
-     return () => {
-      window.removeEventListener('click', handleClickChildMesh);
-
-     }
+    
   }, []);
 
 
-
-  const handleClickChildMesh = (event) => {
  
+    const handleClickChildMesh = (event) => {
+      event.stopPropagation();
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
       
@@ -91,41 +84,58 @@ function GlobalProduct3D() {
         console.log(originalPositions.hasOwnProperty(`${uuid}`))
         if (originalPositions.hasOwnProperty(`${uuid}`) == true && rotationPositions.hasOwnProperty(`${uuid}`) == true) {
           console.log('exsist')
-          if(objIntersects.position.x == 0) {
-            console.log(rotationPositions)
-            runOldPos(objIntersects,uuid,originalPositions,rotationPositions)
        
-          }
+           // console.log(originalPositions)
+           runOldPos(objIntersects,uuid,originalPositions,rotationPositions)
+           delete originalPositions[`${uuid}`];
+          delete rotationPositions[`${uuid}`];
+         
         }else{
           console.log('NOT exsist')
           console.log(originalPositions,rotationPositions)
    
           originalPositions[`${uuid}`] = {...objIntersects.position}
           rotationPositions[`${uuid}`] = {...objIntersects.rotation}
-          runNewPos(objIntersects,uuid,originalPositions,rotationPositions)
+         runNewPos(objIntersects,uuid,originalPositions,rotationPositions)
         }
       }else{
         console.warn('err')
       }
   };
+
+
+  useEffect(() => {
+  // Add event listener to listen for mouse movement
+  groupRef.current.addEventListener('click', handleClickChildMesh);
+
+  // Return cleanup function to remove event listener
+  return () => {
+    groupRef.current.removeEventListener('click', handleClickChildMesh);
+
+ }
+
+  }, [groupRef])
+  
+ 
   function runOldPos(objIntersects,uuid,originalPositions,rotationPositions) {
-    gsap.to(objIntersects.position, {
+   gsap.to(objIntersects.position, {
       x: originalPositions[uuid].x,
       y: originalPositions[uuid].y,
       z: originalPositions[uuid].z,
       ease: Power2.easeInOut,
       duration: 1.5
-    });
-    gsap.to(objIntersects.rotation, {
+    }); 
+   
+    /* gsap.to(objIntersects.rotation, {
       x: rotationPositions[uuid].x,
       y: rotationPositions[uuid].y,
       z: rotationPositions[uuid].z,
       ease: Power2.easeInOut,
       duration: 1.5
-    });
+    }); */
   }
 
-  function runNewPos(objIntersects,uuid,originalPositions,rotationPositions) {
+  function runNewPos(objIntersects) {
     gsap.to(objIntersects.position, {
       x: 0,
       y: 0,

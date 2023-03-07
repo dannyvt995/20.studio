@@ -1,140 +1,147 @@
-import React, { useEffect, useRef,useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import '.././styles/Home.css'
 import img01 from '../asset/img.png'
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import Partners from '../components/Partners';
 import Services from '../components/Services';
+import ServicesinPage from '../components/ServicesinPage';
 import GalleryinPage from '../components/GalleryinPage';
 import Contact from '../components/Contact';
 import gsap from 'gsap';
 import vid1 from '../asset/videos/websites.mp4'
 import useLocoScroll from '.././hooks/useLocoScroll';
 import usePageTransition from '.././hooks/usePageTransition';
+import IntroVid from '../components/IntroVid';
+import '.././styles/HomeNew.css'
 
 
 export default function Home() {
-//  useLocoScroll(true)
+  useLocoScroll(true)
   const vidSec = useRef(null)
   const { redirectPage } = usePageTransition();
- 
-  /* useEffect(() => {
-    const transitiondom = document.querySelector('#transition-section')
-    const styletransitiondom = window.getComputedStyle(transitiondom)
-    if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) === null || parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 0) {
-          console.log('Rediect direct')
-          return
-      }else{
 
-        if(parseFloat(styletransitiondom.getPropertyValue('--opacity')) == 1){
-              let tl = gsap.timeline({})
-              tl.set(transitiondom, {
-                "--posX": `0%`,
-                "--posY": `0%`,
-                
-              },"openClipPatch")
-              .add("openClipPatch")
-              tl.to(transitiondom, {
-                "--size": `0%`,
-                "--opacity":0,
-                  ease: "power4.out",duration:1
-              })
-          }
-          return
-      }
-      function afterendTrans() {
-        transitiondom.childNodes[0].innerHTML = '';
-    }
-  }, [])
-  
-
-  const redirectPage = (event) => {
-    console.log(`READY TO REDIRECT: ${event.target.getAttribute("value")}`)
-    const transitiondom = document.querySelector('#transition-section')
-    let s = event.target.getAttribute("value")
-    let rect = (event.target).getBoundingClientRect();
-   // console.log(`${(rect.x / window.innerWidth)*100}%`)
-    //console.log(`${(rect.y / window.innerHeight)*100}%`)
-    if(s !== null) {
-      console.log('RUN rediecrt start')
-
-      const matchingPatches = dataurl.urlname.filter(item => item.patch === s);
-      matchingPatches.forEach(item => redirectNow(item.name));
-      function redirectNow(namepage) {
-        transitiondom.childNodes[0].innerHTML = `${namepage}`;
-        let tl = gsap.timeline({onComplete: endTrans})
-        tl.set(transitiondom, {
-          "--opacity":1,
-          "--posX": `${(rect.x / window.innerWidth)*100}%`,
-          "--posY": `${(rect.y / window.innerHeight)*100}%`,
-          
-        },"openClipPatch")
-        .add("openClipPatch")
-        tl.to(transitiondom, {
-          "--size": `150%`,
-            ease: "power4.out",duration:1
-        })
-      }
-    
-        function endTrans() {
-           console.log('RUN rediecrt click btn child')
-           navigate(`${s}`)
-            return
-        }
-        
- 
-    }else{
-      console.log('err redirectPage')
-    }
-  } */
 
 
   useEffect(() => {
-  
+
+    let ctx = gsap.context(() => {
+      /*   let tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".section-gallery",
+            scroller: '.container',
+            scrub: true,
+            pin: true,
+            // markers:true,
+            start: "top top",
+            end: "+=200%"
+          }
+        });
+        tl.from(".line-2", {
+          scaleX: 0,
+          transformOrigin: "left center",
+          ease: "none"
+        })
+        .from(".img-gsap-fix a", {
+          opacity: 0,
+          y: 400,
+          stagger: 0.7,
+          ease: "power2.inOut"
+        }, 0); */
+
+
+      /*   let tlvid = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".welcome-section",
+            scroller: '.container',
+            scrub: true,
+            pin: true,
+           // markers:true,
+            start: "top center",
+            end: "+=100%"
+          }
+        });
+        tlvid.to(vidSec.current, {
+          scale: 2,
+      
+          ease: "none"
+        }) */
+
+    });
+    return () => ctx.revert(); // <-- CLEANUP!
+  }, []);
+
+
+
+
+  useEffect(() => {
+    const container = document.querySelector(".services-section-inpage");
+    const section = document.querySelector(".services-section-inpage .item");
+    const process = document.querySelector(".services-section-inpage span");
+    const item = document.querySelectorAll(".services-section-inpage .item a")
     let ctx = gsap.context(() => {
       let tl = gsap.timeline({
         scrollTrigger: {
-          trigger: ".section-gallery",
+          trigger: ".services-section-inpage",
           scroller: '.container',
           scrub: true,
           pin: true,
           // markers:true,
-          start: "top top",
-          end: "+=200%"
+          start: "-=50% top",
+          end: "+=400%"
         }
       });
-      tl.from(".line-2", {
-        scaleX: 0,
-        transformOrigin: "left center",
-        ease: "none"
-      })
-      .from(".img-gsap-fix a", {
-        opacity: 0,
-        y: 400,
-        stagger: 0.7,
-        ease: "power2.inOut"
-      }, 0);
+      tl.set(section, {
+        x: (window.innerWidth - 128) / 3
+      }, "actionChild")
+        .fromTo(".services-section-inpage .item a:nth-child(1)", {
+          yPercent: 120,
+          scale: 2.5
+        }, {
+          yPercent: 0,
+          scale: 1
+        }, "actionChild")
 
-
-    /*   let tlvid = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".welcome-section",
-          scroller: '.container',
-          scrub: true,
-          pin: true,
-         // markers:true,
-          start: "top center",
-          end: "+=100%"
-        }
-      });
-      tlvid.to(vidSec.current, {
-        scale: 2,
-    
-        ease: "none"
-      }) */
-   
-    });
+        .from(".services-section-inpage .item a:nth-child(2)", {
+          yPercent: 120
+        })
+        .from(".services-section-inpage .item a:nth-child(3)", {
+          yPercent: 150
+        }, "<")
+        .to(section, {
+          x: 0
+        })
+    })
     return () => ctx.revert(); // <-- CLEANUP!
-  }, []);
+
+  }, [])
+
+
+  useEffect(() => {
+
+    let ctxintro = gsap.context(() => {
+      let tlintro = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".section-intro-vid",
+          scroller: '.container',
+      
+         pin:true,
+    
+          start: "top top",
+          end:"+=50%",
+          endTrigger: ".services-section-inpage"
+        }
+      })
+        tlintro.fromTo(".section-intro-vid .vid", {
+          yPercent:0,
+      },{
+        yPercent: 50
+      })
+     
+
+    })
+    return () => ctxintro.revert(); // <-- CLEANUP!
+
+  }, [])
 
   return (
     <>
@@ -156,17 +163,43 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className='welcome-section'>
+       {/*  <div className='section-hero'>
+            <div className='img-bg'>
+              <img src={img01} alt="" />
+            </div>
+            <div className='title'>
+              <h2>20STUDIO</h2>
+            </div>
+        </div> */}
+        <div className='section-intro-vid'>
+          <div className='vid'>
+            <span>differences</span>
+          </div>
+
+        </div>
+        <div className='services-section-inpage'>
+          <div className='title'>
+            <h2>Services</h2>
+            <a>Explore our services</a>
+          </div>
+          <span></span>
+          <div className='item'>
+            <a></a>
+            <a></a>
+            <a></a>
+          </div>
+        </div>
+
+        {/* <GalleryinPage /> */}
+        {/*   <div className='welcome-section'>
           <div ref={vidSec}> 
             <video controls preload="auto" autoPlay muted loop>
               <source src={vid1} type="video/mp4" />
             </video>
           </div>
       
-        </div>
-        <Partners/>
-        <Services/>
-        <GalleryinPage />
+        </div> */}
+        {/*   <Partners/> */}
         <Contact />
       </section>
     </>

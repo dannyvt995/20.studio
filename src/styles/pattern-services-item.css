@@ -32,7 +32,7 @@
     text-align: center;
 }
 .paranoid-section .hero-pm .content h2 {
-    font-family: Marcellus;
+    font-family: NVNValky;
     font-size: 64px;
     font-weight: 400;
     line-height: 80px;
@@ -71,7 +71,7 @@
 
 }
 .paranoid-section .hero-sd .content h2 {
-    font-family: Marcellus;
+    font-family: NVNValky;
     font-size: 64px;
     font-weight: 400;
     line-height: 100%;
@@ -107,7 +107,7 @@
 }
 
 .paranoid-section .item-services .content h2 {
-    font-family: Marcellus;
+    font-family: NVNValky;
     font-size: 64px;
     font-weight: 400;
     line-height: 120%;
@@ -335,7 +335,7 @@
     z-index:999;
 }
 .section-trans-gallery .content  h2 {
-    font-family: Marcellus;
+    font-family: NVNValky;
     font-size: 64px;
     font-weight: 400;
     line-height: 100%;
