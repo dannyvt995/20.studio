@@ -1,20 +1,20 @@
-.services-section-inpage {
+.services-section-inpage,.portfolio-section {
     max-width:100%;
     border:3px solid white;
     height:100vh;
     
 }
-.services-section-inpage .title {
+.services-section-inpage .title,.portfolio-section .title  {
     position:relative;
 }
-.services-section-inpage .title h2 {
+.services-section-inpage .title h2,.portfolio-section .title h2 {
     font-family: NVNValky;
     font-size: 10vh;
     line-height: 100%;
     text-align: left;
    margin:64px 0 64px 64px;
 }
-.services-section-inpage .title a {
+.services-section-inpage .title a,.portfolio-section .title a {
     display:block;
     font-family: PoiretOne;
     
@@ -29,7 +29,7 @@
     right:0;
     transform:translateY(-50%);
 }
-.services-section-inpage .title a:after {
+.services-section-inpage .title a:after,.portfolio-section .title a:after {
     content:"";
     position:absolute;
     bottom:0;
@@ -53,7 +53,7 @@
 .services-section-inpage .item > a {
     width: calc(100vw / 3.4);
     height: calc(100vh - (32px + 128px + 128px ));
-    background:green;
+    background:#00800052;
     display:block;
 }
 
@@ -61,33 +61,34 @@
 
 
 .section-intro-vid {
-    width:100%;
+    max-width:100%;
     position:relative;
-    height:150vh;
+    height:100vh;
+    border:3px solid white;
 }
 .section-intro-vid .vid {
     position:absolute;
     width:calc(100vw - 128px);
-    height:100vh;
+    height:70vh;
     left:50%;
     transform:translateX(-50%);
     display:block;
-    background:green;
-    transform-origin: center;
+    background:#00800052;
+    transform-origin: center bottom;
 }
 .section-intro-vid span {
     position:absolute;
     right:0;
-    bottom:0;
+    
     transform:translateY(-50%);
 
-    background:white;
-    color:gray;
+    
+    color:white;
     font-family: NVNValky;
-    font-size: 90px;
+    font-size: 10vh;
     font-style: italic;
 
-    line-height: 120%;
+    line-height: 100%;
     letter-spacing: 0.01em;
     margin: 0 64px;
     text-align: center;
@@ -133,3 +134,17 @@ letter-spacing: 0.01em;
 text-align: right;
     margin: 0;
 } */
+
+
+/*  portfolio */
+.portfolio-section .img {
+    display:flex;
+    flex-wrap:wrap;
+    width:calc(100vw - 128px);
+    margin:0 auto;
+}
+.portfolio-section .img  a {
+    height: 500px;
+    display:block;
+    background:#00800052;
+}

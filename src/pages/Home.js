@@ -74,10 +74,7 @@ export default function Home() {
 
 
   useEffect(() => {
-    const container = document.querySelector(".services-section-inpage");
-    const section = document.querySelector(".services-section-inpage .item");
-    const process = document.querySelector(".services-section-inpage span");
-    const item = document.querySelectorAll(".services-section-inpage .item a")
+
     let ctx = gsap.context(() => {
       let tl = gsap.timeline({
         scrollTrigger: {
@@ -86,11 +83,11 @@ export default function Home() {
           scrub: true,
           pin: true,
           // markers:true,
-          start: "-=50% top",
+          start: "top top",
           end: "+=400%"
         }
       });
-      tl.set(section, {
+      tl.set(".services-section-inpage .item", {
         x: (window.innerWidth - 128) / 3
       }, "actionChild")
         .fromTo(".services-section-inpage .item a:nth-child(1)", {
@@ -107,46 +104,47 @@ export default function Home() {
         .from(".services-section-inpage .item a:nth-child(3)", {
           yPercent: 150
         }, "<")
-        .to(section, {
+        .to(".services-section-inpage .item", {
           x: 0
         })
+
+
+
+
+        let tlintro = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".section-intro-vid",
+            scroller: '.container',
+            scrub: true,
+           //pin:true,
+           markers:true,
+            start: "-10%` top",
+            end: "+=70%"
+            
+          }
+        })
+          tlintro.fromTo(".section-intro-vid .vid", {
+            yPercent:0,
+            scale:1
+        },{
+          yPercent: 29.2,
+          scale:.25
+        })
+        .fromTo(".section-intro-vid span", {
+          top: "55%",
+        },{
+          top:"87.88%"
+        },"<")
     })
     return () => ctx.revert(); // <-- CLEANUP!
 
   }, [])
 
 
-  useEffect(() => {
-
-    let ctxintro = gsap.context(() => {
-      let tlintro = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".section-intro-vid",
-          scroller: '.container',
-      
-         pin:true,
-    
-          start: "top top",
-          end:"+=50%",
-          endTrigger: ".services-section-inpage"
-        }
-      })
-        tlintro.fromTo(".section-intro-vid .vid", {
-          yPercent:0,
-      },{
-        yPercent: 50
-      })
-     
-
-    })
-    return () => ctxintro.revert(); // <-- CLEANUP!
-
-  }, [])
-
   return (
     <>
       <section data-scroll-section>
-        <div className='warpper-content hero-section'>
+        <div className='warpper-content hero-section' style={{marginBottom: '10vh'}}>
           <div className='img-hero-sec'>
           </div>
           <div className='content'>
@@ -173,9 +171,9 @@ export default function Home() {
         </div> */}
         <div className='section-intro-vid'>
           <div className='vid'>
-            <span>differences</span>
+           
           </div>
-
+          <span>differences</span>
         </div>
         <div className='services-section-inpage'>
           <div className='title'>
@@ -189,7 +187,19 @@ export default function Home() {
             <a></a>
           </div>
         </div>
-
+        <div className='portfolio-section'>
+          <div className='title'>
+            <h2>Portfolio</h2>
+            <a>Visit our gallery</a>
+          </div>
+          <div className='img'>
+            <a style={{width:'60%'}}></a>
+            <a style={{width:'30%'}}></a>
+            <a style={{width:'30%'}}></a>
+            <a style={{width:'60%'}}></a>
+            <a></a>
+          </div>
+        </div>
         {/* <GalleryinPage /> */}
         {/*   <div className='welcome-section'>
           <div ref={vidSec}> 

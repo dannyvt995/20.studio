@@ -74,7 +74,7 @@ function App() {
         <Route path="/sampledev" element={
           <>
             <div id='transition-section'><h2></h2></div>
-            <section className='container'>
+  ``            <section className='container'>
               <Navbar />
               <SampleDev />
               <Grid />
