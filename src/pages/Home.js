@@ -84,32 +84,48 @@ export default function Home() {
           pin: true,
           // markers:true,
           start: "top top",
-          end: "+=400%"
+          end: "+=600%"
         }
       });
       tl.set(".services-section-inpage .item", {
-        x: (window.innerWidth - 128) / 3
+        x: (window.innerWidth - 256) / 3 + 64
       }, "actionChild")
         .fromTo(".services-section-inpage .item a:nth-child(1)", {
           yPercent: 120,
-          scale: 2.5
+  
+          scale: 2
         }, {
           yPercent: 0,
-          scale: 1
+      
+          scale: 1,
         }, "actionChild")
 
         .from(".services-section-inpage .item a:nth-child(2)", {
-          yPercent: 120
-        })
+          yPercent: 150,
+          x: ((window.innerWidth - 256) / 3) / 2 +64
+        },"<")
         .from(".services-section-inpage .item a:nth-child(3)", {
-          yPercent: 150
+          yPercent: 160,
+          x: ((window.innerWidth - 256) / 3) / 2 +64
         }, "<")
         .to(".services-section-inpage .item", {
           x: 0
         })
 
-
-
+        
+        let tlprotfolio = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".portfolio-section",
+            scroller: '.container',
+            scrub: true,
+            pin:true,
+            start: "top top",
+            end: "+=500%"
+          }
+        })
+        tlprotfolio.from(".portfolio-section .img div a",{
+          y:500
+        })
 
         let tlintro = gsap.timeline({
           scrollTrigger: {
@@ -117,10 +133,9 @@ export default function Home() {
             scroller: '.container',
             scrub: true,
            //pin:true,
-           markers:true,
-            start: "-10%` top",
+        
+            start: "top top",
             end: "+=70%"
-            
           }
         })
           tlintro.fromTo(".section-intro-vid .vid", {
@@ -193,11 +208,17 @@ export default function Home() {
             <a>Visit our gallery</a>
           </div>
           <div className='img'>
-            <a style={{width:'60%'}}></a>
-            <a style={{width:'30%'}}></a>
-            <a style={{width:'30%'}}></a>
-            <a style={{width:'60%'}}></a>
-            <a></a>
+            <div style={{display:"flex",justifyContent: "space-between",width:"100%"}}>
+              <a style={{width:'60%'}}></a>
+              <a style={{width:'30%'}}></a>
+              <a style={{width:'30%'}}></a>
+              <a style={{width:'60%'}}></a>
+            </div>
+            <div style={{display:"flex",justifyContent: "space-between",width:"100%"}}>
+              
+            </div>
+          
+     
           </div>
         </div>
         {/* <GalleryinPage /> */}

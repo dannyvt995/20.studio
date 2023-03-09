@@ -1,18 +1,19 @@
 .services-section-inpage,.portfolio-section {
     max-width:100%;
-    border:3px solid white;
+
     height:100vh;
     
 }
 .services-section-inpage .title,.portfolio-section .title  {
     position:relative;
+    padding-top:32px;
 }
 .services-section-inpage .title h2,.portfolio-section .title h2 {
     font-family: NVNValky;
     font-size: 10vh;
     line-height: 100%;
     text-align: left;
-   margin:64px 0 64px 64px;
+   margin:0 0 32px 64px;
 }
 .services-section-inpage .title a,.portfolio-section .title a {
     display:block;
@@ -46,15 +47,22 @@
     transform:scale(0,1);
 }
 .services-section-inpage .item {
-    display:flex;
-    padding: 0 64px;
-    justify-content: space-between;
+    display: flex;
+    
+    justify-content:space-evenly;
+    position: relative;
+   
 }
+
 .services-section-inpage .item > a {
-    width: calc(100vw / 3.4);
-    height: calc(100vh - (32px + 128px + 128px ));
+    position:relative;
+    width: calc(calc(100vw - 256px) / 3);
+    height: 75vh;
     background:#00800052;
     display:block;
+   
+    transform-origin: center;
+    
 }
 
 
