@@ -1,4 +1,4 @@
-.services-section-inpage,.portfolio-section {
+.services-section-inpage{
     max-width:100%;
 
     height:100vh;
@@ -145,14 +145,62 @@ text-align: right;
 
 
 /*  portfolio */
+.portfolio-section  {
+    max-width:100%;
+  
+    height:100vh;
+}
 .portfolio-section .img {
-    display:flex;
-    flex-wrap:wrap;
+    display:grid;
+    grid-template-columns: 33.333% 33.333% 33.333%;
     width:calc(100vw - 128px);
+    height:fit-content;
+    overflow:hidden;
     margin:0 auto;
+    gap: 20px;
+}
+.portfolio-section .img  a:nth-child(1) {
+    grid-row-start:1;
+    grid-row-end: 2;
+    grid-column-start : 1;
+    grid-column-end : 3;
+
+}
+.portfolio-section .img  a:nth-child(2) {
+    grid-row-start:1;
+    grid-row-end: 2;
+    grid-column-start : 3;
+    grid-column-end : 5;
+
+}
+.portfolio-section .img  a:nth-child(3) {
+    grid-row-start:2;
+    grid-row-end: 3;
+    grid-column-start : 1;
+    grid-column-end : 2;
+ 
+}
+.portfolio-section .img  a:nth-child(4) {
+    grid-row-start:2;
+    grid-row-end: 4;
+    grid-column-start : 2;
+    grid-column-end : 5;
+   
+}
+.portfolio-section .img  a:nth-child(5) {
+    grid-row-start:3;
+    grid-row-end: 4;
+    grid-column-start : 1;
+    grid-column-end : 2;
+   
 }
 .portfolio-section .img  a {
-    height: 500px;
     display:block;
-    background:#00800052;
+    width:100%;
+    height:fit-content;
+    
+}
+.portfolio-section .img  a img {
+    width:100%;
+    height:auto;
 }

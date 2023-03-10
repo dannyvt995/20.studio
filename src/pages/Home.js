@@ -14,6 +14,16 @@ import usePageTransition from '.././hooks/usePageTransition';
 import IntroVid from '../components/IntroVid';
 import '.././styles/HomeNew.css'
 
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+const images = {
+  image1: require('.././asset/gallery/3.png'),
+  image2: require('.././asset/gallery/5.png'),
+  image3: require('.././asset/gallery/8.png'),
+  image4: require('.././asset/gallery/b.png'),
+  image5: require('.././asset/gallery/7.jpg')
+};
 
 export default function Home() {
   useLocoScroll(true)
@@ -72,11 +82,12 @@ export default function Home() {
 
 
 
-
+ 
   useEffect(() => {
-
+    const listImgProfolio = gsap.utils.toArray(".portfolio-section .img a");
+    console.log(listImgProfolio)
     let ctx = gsap.context(() => {
-      let tl = gsap.timeline({
+    /*   let tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".services-section-inpage",
           scroller: '.container',
@@ -111,23 +122,47 @@ export default function Home() {
         .to(".services-section-inpage .item", {
           x: 0
         })
-
-        
+ */
+ 
         let tlprotfolio = gsap.timeline({
           scrollTrigger: {
             trigger: ".portfolio-section",
             scroller: '.container',
-            scrub: true,
+          scrub: true,
             pin:true,
+            markers:true,
             start: "top top",
-            end: "+=500%"
+            end: "+=500%",
           }
         })
-        tlprotfolio.from(".portfolio-section .img div a",{
-          y:500
-        })
+        
+        tlprotfolio.fromTo(
+          listImgProfolio[0],
+          { yPercent: 0 },
+          {
+            yPercent: -100,
+            duration: 2,
+            onUpdate: function() {
+              console.log(this.progress());
+              const img0Bottom = listImgProfolio[0].getBoundingClientRect().bottom;
+              const img1Bottom = listImgProfolio[1].getBoundingClientRect().bottom;
+              if (img0Bottom < img1Bottom) {
+                console.log('out')
+                tlprotfolio.add("action2")
+              }else{
+                console.log('in')
+          
+              }
+            }
+          });
+          tlprotfolio.fromTo(listImgProfolio[1],
+            { yPercent: 0 },
+            {yPercent: -100 },"action2")
 
-        let tlintro = gsap.timeline({
+
+
+
+      /*   let tlintro = gsap.timeline({
           scrollTrigger: {
             trigger: ".section-intro-vid",
             scroller: '.container',
@@ -149,8 +184,8 @@ export default function Home() {
           top: "55%",
         },{
           top:"87.88%"
-        },"<")
-    })
+        },"<")*/
+    }) 
     return () => ctx.revert(); // <-- CLEANUP!
 
   }, [])
@@ -184,7 +219,7 @@ export default function Home() {
               <h2>20STUDIO</h2>
             </div>
         </div> */}
-        <div className='section-intro-vid'>
+      {/*   <div className='section-intro-vid'>
           <div className='vid'>
            
           </div>
@@ -201,24 +236,18 @@ export default function Home() {
             <a></a>
             <a></a>
           </div>
-        </div>
-        <div className='portfolio-section'>
+        </div> */}
+        <div className='portfolio-section' id="portfolio-trigger">
           <div className='title'>
             <h2>Portfolio</h2>
             <a>Visit our gallery</a>
           </div>
           <div className='img'>
-            <div style={{display:"flex",justifyContent: "space-between",width:"100%"}}>
-              <a style={{width:'60%'}}></a>
-              <a style={{width:'30%'}}></a>
-              <a style={{width:'30%'}}></a>
-              <a style={{width:'60%'}}></a>
-            </div>
-            <div style={{display:"flex",justifyContent: "space-between",width:"100%"}}>
-              
-            </div>
-          
-     
+              <a><img src={images.image1} alt /></a>
+              <a><img src={images.image2} alt /></a>
+              <a><img src={images.image3} alt /></a>
+              <a><img src={images.image4} alt /></a>
+              <a><img src={images.image5} alt /></a>
           </div>
         </div>
         {/* <GalleryinPage /> */}
