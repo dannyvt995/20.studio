@@ -13,10 +13,10 @@ import useLocoScroll from '.././hooks/useLocoScroll';
 import usePageTransition from '.././hooks/usePageTransition';
 import IntroVid from '../components/IntroVid';
 import '.././styles/HomeNew.css'
-
+import SliderPartners from '../components/SliderPartners';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CSSRulePlugin } from "gsap/CSSRulePlugin"
 
-gsap.registerPlugin(ScrollTrigger);
 const images = {
   image1: require('.././asset/gallery/3.png'),
   image2: require('.././asset/gallery/5.png'),
@@ -24,14 +24,16 @@ const images = {
   image4: require('.././asset/gallery/b.png'),
   image5: require('.././asset/gallery/7.jpg')
 };
-
+gsap.registerPlugin(ScrollTrigger);
 export default function Home() {
   useLocoScroll(true)
   const vidSec = useRef(null)
   const { redirectPage } = usePageTransition();
+  const [defaultPosImg, setDefaultPosImg] = useState(false)
 
 
-
+  const listImgRef = useRef(null);
+  const listImgDetailRef = useRef(null);
   useEffect(() => {
 
     let ctx = gsap.context(() => {
@@ -82,119 +84,157 @@ export default function Home() {
 
 
 
- 
+
+
+
+
   useEffect(() => {
-    const listImgProfolio = gsap.utils.toArray(".portfolio-section .img a");
-    console.log(listImgProfolio)
-    let ctx = gsap.context(() => {
+    /*  const listImgProfolio = gsap.utils.toArray(".portfolio-section .img a");
+     const listImgProfolioDetail = gsap.utils.toArray(".portfolio-section .img a img");
+ 
+     const ychen = (listImgProfolioDetail[0].getBoundingClientRect().height) /  (listImgProfolioDetail[2].getBoundingClientRect().height)
+  */
+    /*  let ctx = gsap.context(() => {
+     
+ 
+       ScrollTrigger.create({
+         trigger: ".portfolio-section",
+         scroller: ".container",
+         scrub: true,
+         pin: true,
+         markers: true,
+         start: "top top",
+         end: `+=600%`,
+ 
+         onUpdate: function() {
+           const img0Bottom = listImgProfolio[0].getBoundingClientRect().bottom;
+           const img1Bottom = listImgProfolio[1].getBoundingClientRect().bottom;
+           const img3Top = listImgProfolio[3].getBoundingClientRect().top;
+           const img2Top = gsap.getProperty(listImgProfolio[2], 'top');
+           const img0YPercent = gsap.getProperty(listImgProfolio[0], 'yPercent');
+          // Check if top of listImgProfolio[2] is about 50px away from top of viewport
+   
+          if (img2Top < ((window.innerHeight * 8 / 10)  - (listImgProfolio[2].getBoundingClientRect().height))) {
+           console.log('runrunrun')
+           gsap.set(listImgProfolio[2], {
+             top: "auto",
+             bottom: 0
+           });
+         }
+         
+           if (img0Bottom < img1Bottom) {
+         
+             const progress = (img1Bottom - img0Bottom) / (listImgProfolio[1].offsetHeight + window.innerHeight);
+             gsap.to(listImgProfolio[1], {
+               duration: 1,
+               yPercent: -100,
+             
+               immediateRender: false,
+               onUpdate: function() {
+                 this.progress(progress);
+               }
+             });
+ 
+           
+       
+             setDefaultPosImg(true)
+           }else{
+             if(!defaultPosImg) {
+               if(img0YPercent !== 0){
+                 gsap.to(listImgProfolio[1], {
+                   duration: 1,
+                   yPercent: 0
+                
+                 });
+               }else{
+                 return
+               }
+               setDefaultPosImg(false)
+             }
+           } 
+         },
+         animation: gsap.timeline()
+         .to(listImgProfolio[0], { yPercent: -200, duration: 1 })
+         //.to(listImgProfolioDetail[0], { scale:1.2, duration: .5, transformOrigin: "top center" }, "<")
+         .to(listImgProfolio[2], {
+           top: -((listImgProfolioDetail[2].offsetHeight) )+ (window.innerHeight*0.025),
+           duration:1
+         },"<")
+ 
+         .to(listImgProfolio[3], { top: ((listImgProfolioDetail[2].offsetHeight) )+ (window.innerHeight*0.025), duration: 1 }, "<")
+         
+       });
+     }) 
+     return () => ctx.revert(); */
+
+    // <-- CLEANUP!
     /*   let tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".services-section-inpage",
+      scroller: '.container',
+      scrub: true,
+      pin: true,
+      // markers:true,
+      start: "top top",
+      end: "+=600%"
+    }
+  });
+  tl.set(".services-section-inpage .item", {
+    x: (window.innerWidth - 256) / 3 + 64
+  }, "actionChild")
+    .fromTo(".services-section-inpage .item a:nth-child(1)", {
+      yPercent: 120,
+ 
+      scale: 2
+    }, {
+      yPercent: 0,
+  
+      scale: 1,
+    }, "actionChild")
+
+    .from(".services-section-inpage .item a:nth-child(2)", {
+      yPercent: 150,
+      x: ((window.innerWidth - 256) / 3) / 2 +64
+    },"<")
+    .from(".services-section-inpage .item a:nth-child(3)", {
+      yPercent: 160,
+      x: ((window.innerWidth - 256) / 3) / 2 +64
+    }, "<")
+    .to(".services-section-inpage .item", {
+      x: 0
+    })
+*/
+
+    /*   let tlintro = gsap.timeline({
         scrollTrigger: {
-          trigger: ".services-section-inpage",
+          trigger: ".section-intro-vid",
           scroller: '.container',
           scrub: true,
-          pin: true,
-          // markers:true,
-          start: "top top",
-          end: "+=600%"
-        }
-      });
-      tl.set(".services-section-inpage .item", {
-        x: (window.innerWidth - 256) / 3 + 64
-      }, "actionChild")
-        .fromTo(".services-section-inpage .item a:nth-child(1)", {
-          yPercent: 120,
-  
-          scale: 2
-        }, {
-          yPercent: 0,
+         //pin:true,
       
-          scale: 1,
-        }, "actionChild")
-
-        .from(".services-section-inpage .item a:nth-child(2)", {
-          yPercent: 150,
-          x: ((window.innerWidth - 256) / 3) / 2 +64
-        },"<")
-        .from(".services-section-inpage .item a:nth-child(3)", {
-          yPercent: 160,
-          x: ((window.innerWidth - 256) / 3) / 2 +64
-        }, "<")
-        .to(".services-section-inpage .item", {
-          x: 0
-        })
- */
- 
-        let tlprotfolio = gsap.timeline({
-          scrollTrigger: {
-            trigger: ".portfolio-section",
-            scroller: '.container',
-          scrub: true,
-            pin:true,
-            markers:true,
-            start: "top top",
-            end: "+=500%",
-          }
-        })
-        
-        tlprotfolio.fromTo(
-          listImgProfolio[0],
-          { yPercent: 0 },
-          {
-            yPercent: -100,
-            duration: 2,
-            onUpdate: function() {
-              console.log(this.progress());
-              const img0Bottom = listImgProfolio[0].getBoundingClientRect().bottom;
-              const img1Bottom = listImgProfolio[1].getBoundingClientRect().bottom;
-              if (img0Bottom < img1Bottom) {
-                console.log('out')
-                tlprotfolio.add("action2")
-              }else{
-                console.log('in')
-          
-              }
-            }
-          });
-          tlprotfolio.fromTo(listImgProfolio[1],
-            { yPercent: 0 },
-            {yPercent: -100 },"action2")
-
-
-
-
-      /*   let tlintro = gsap.timeline({
-          scrollTrigger: {
-            trigger: ".section-intro-vid",
-            scroller: '.container',
-            scrub: true,
-           //pin:true,
-        
-            start: "top top",
-            end: "+=70%"
-          }
-        })
-          tlintro.fromTo(".section-intro-vid .vid", {
-            yPercent:0,
-            scale:1
-        },{
-          yPercent: 29.2,
-          scale:.25
-        })
-        .fromTo(".section-intro-vid span", {
-          top: "55%",
-        },{
-          top:"87.88%"
-        },"<")*/
-    }) 
-    return () => ctx.revert(); // <-- CLEANUP!
-
+          start: "top top",
+          end: "+=70%"
+        }
+      })
+        tlintro.fromTo(".section-intro-vid .vid", {
+          yPercent:0,
+          scale:1
+      },{
+        yPercent: 29.2,
+        scale:.25
+      })
+      .fromTo(".section-intro-vid span", {
+        top: "55%",
+      },{
+        top:"87.88%"
+      },"<")*/
   }, [])
 
 
   return (
     <>
       <section data-scroll-section>
-        <div className='warpper-content hero-section' style={{marginBottom: '10vh'}}>
+        <div className='warpper-content hero-section' style={{ marginBottom: '10vh' }}>
           <div className='img-hero-sec'>
           </div>
           <div className='content'>
@@ -211,7 +251,13 @@ export default function Home() {
             </div>
           </div>
         </div>
-       {/*  <div className='section-hero'>
+<SliderPartners/>
+
+     
+
+
+
+        {/*  <div className='section-hero'>
             <div className='img-bg'>
               <img src={img01} alt="" />
             </div>
@@ -219,7 +265,7 @@ export default function Home() {
               <h2>20STUDIO</h2>
             </div>
         </div> */}
-      {/*   <div className='section-intro-vid'>
+        {/*   <div className='section-intro-vid'>
           <div className='vid'>
            
           </div>
@@ -237,7 +283,7 @@ export default function Home() {
             <a></a>
           </div>
         </div> */}
-        <div className='portfolio-section' id="portfolio-trigger">
+        {/*  <div className='portfolio-section' id="portfolio-trigger">
           <div className='title'>
             <h2>Portfolio</h2>
             <a>Visit our gallery</a>
@@ -247,9 +293,9 @@ export default function Home() {
               <a><img src={images.image2} alt /></a>
               <a><img src={images.image3} alt /></a>
               <a><img src={images.image4} alt /></a>
-              <a><img src={images.image5} alt /></a>
+             
           </div>
-        </div>
+        </div> */}
         {/* <GalleryinPage /> */}
         {/*   <div className='welcome-section'>
           <div ref={vidSec}> 

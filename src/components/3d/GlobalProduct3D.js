@@ -10,7 +10,7 @@ function GlobalProduct3D() {
   let mesh
   const [targets, setTargets] = useState([]);
   const groupRef = useRef();
-  const COUNT_DOM = 10;
+
   const mouse = new THREE.Vector2();
   const raycaster = new THREE.Raycaster();
   const originalPositions = {}
