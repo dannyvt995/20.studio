@@ -105,8 +105,8 @@ export default function PlaneGeo() {
     };
 
     useEffect(() => {
-        meshRef.current.position.set(-450, -300, 0)
-
+        meshRef.current.position.set(0, 0, 0)
+     
     }, [meshRef])
 
 
@@ -125,7 +125,8 @@ export default function PlaneGeo() {
                 let arrh = [70, 110, 160]
                 let m = Math.floor(Math.random() * 3)
                 let h = arrh[m]
-                console.log(h)
+                //console.log(h)
+
                 setTargetsPos(targetsPos => [...targetsPos, [(W_GEO + 20) * i, 100 * j, 0]]);
                 setTargetHeight(targetHeight => [...targetHeight, h])
              
@@ -144,16 +145,18 @@ export default function PlaneGeo() {
 
                 // console.log(texture)
 
-
+                let rZd = Math.floor(Math.random() * 520) + 300
+                let rXd = (W_GEO + 20) * i
+                let rYd = 100 * j
                 targets.push(
                     <mesh key={Math.random(50) + j}
-                        position={[0, 0, -420]} // Pos defuat
-                        scale={[.42, .42, .42]}
+                        position={[rXd, rYd, -rZd]} // Pos defuat
+                        scale={[1,1,1]}
                         onPointerDown={onPointerDown}
                         onPointerMove={onPointerMove}
                         onPointerUp={onPointerUp}>
                         <planeGeometry args={[W_GEO, h]} />
-                        <meshBasicMaterial transparent opacity={0} map={texture} />
+                        <meshBasicMaterial transparent opacity={1} map={texture} />
                     </mesh>
                 )
 
@@ -166,12 +169,13 @@ export default function PlaneGeo() {
 
     }, [scene]);
 
+    const TIME_SETPOS = 2
     useEffect(() => {
         if (targetsPos.length > ((COL_GEO * ROW_GEO) / 3 * 2)) {
             //console.log(targetsPos[1][1])
             console.log(targetHeight)
             console.log(targetsPos)
-     
+            console.log(performance.now())
             setTimeout(() => {
                 let a = meshRef.current.children
 
@@ -182,7 +186,7 @@ export default function PlaneGeo() {
                             y: targetsPos[e][1]  + (targetHeight[e] / 2),
                             z: targetsPos[e][2],
                             delay: delayT,
-                            duration: 1,
+                            duration: TIME_SETPOS,
                             ease: Power2.easeInOut
                         })
                         animaChild(a[e], delayT)
@@ -196,7 +200,7 @@ export default function PlaneGeo() {
                         y: targetHeight[e - 1] + (targetHeight[e] / 2) + 20,
                         z: targetsPos[e][2],
                         delay: delayT,
-                        duration: 1,
+                        duration: TIME_SETPOS,
                         ease: Power2.easeInOut
                     })
                     animaChild(a[e], delayT)
@@ -208,7 +212,7 @@ export default function PlaneGeo() {
                         y: targetHeight[e - 2] + targetHeight[e - 1] + (targetHeight[e] / 2) + 40,
                         z: targetsPos[e][2],
                         delay: delayT,
-                        duration: 1,
+                        duration: TIME_SETPOS,
                         ease: Power2.easeInOut
                     })
                     animaChild(a[e], delayT)
@@ -220,7 +224,7 @@ export default function PlaneGeo() {
                         y: targetHeight[e - 3] + targetHeight[e - 2] + targetHeight[e - 1] + (targetHeight[e] / 2) + 60,
                         z: targetsPos[e][2],
                         delay: delayT,
-                        duration: 1,
+                        duration: TIME_SETPOS,
                         ease: Power2.easeInOut
                     })
                     animaChild(a[e], delayT)
@@ -232,7 +236,7 @@ export default function PlaneGeo() {
                         y: targetHeight[e - 4] + targetHeight[e - 3] + targetHeight[e - 2] + targetHeight[e - 1] + (targetHeight[e] / 2) + 80,
                         z: targetsPos[e][2],
                         delay: delayT,
-                        duration: 1,
+                        duration: TIME_SETPOS,
                         ease: Power2.easeInOut
                     })
                     animaChild(a[e], delayT)
