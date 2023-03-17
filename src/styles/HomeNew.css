@@ -226,3 +226,23 @@ text-align: right;
     width:100%;
     height:100%;
 }
+
+
+
+/* 3d setting gallery */
+.container {
+    overflow: hidden;
+    width: 100vw;
+    display: flex;
+    height:100vh;
+    position: relative;
+}
+#display-3d {
+    background-color: white;
+   
+    display: block;
+  
+    position: fixed;
+    width:100vw;
+    height: 100vh;
+}

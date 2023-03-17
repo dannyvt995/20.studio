@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useThree, useLoader } from "@react-three/fiber";
+import { useThree, useLoader,useFrame } from "@react-three/fiber";
 import * as THREE from 'three';
 import gsap, { Power2 } from "gsap";
 const images = {
@@ -21,7 +21,7 @@ export default function PlaneGeo() {
     const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
     const W_GEO = 80
 
-    const heightRandom = [
+/*     const heightRandom = [
         110,
         70,
         110,
@@ -152,6 +152,7 @@ export default function PlaneGeo() {
                     <mesh key={Math.random(50) + j}
                         position={[rXd, rYd, -rZd]} // Pos defuat
                         scale={[1,1,1]}
+                     
                         onPointerDown={onPointerDown}
                         onPointerMove={onPointerMove}
                         onPointerUp={onPointerUp}>
@@ -169,7 +170,7 @@ export default function PlaneGeo() {
 
     }, [scene]);
 
-    const TIME_SETPOS = 2
+    const TIME_SETPOS = .6
     useEffect(() => {
         if (targetsPos.length > ((COL_GEO * ROW_GEO) / 3 * 2)) {
             //console.log(targetsPos[1][1])
@@ -262,13 +263,69 @@ export default function PlaneGeo() {
             delay: delay,
             ease: Power2.easeInOut
         })
-    }
+    } */
+    const [isHovered, setIsHovered] = useState(true);
+    useEffect(() => {
+        meshRef.current.position.set(0,-200,0);
+        console.log(meshRef.current.children.length)
+        for(let t = 0; t < meshRef.current.children.length; t ++) {
+           
+            meshRef.current.children[t].position.y = 200 * t + 30
+        }
+    },[meshRef])
+
+    const SPEED_ROLL = 40
+    let OLD_DISTANCE = 0
+    
+
+        const onWheel = (e) => {
+            console.log(isHovered)
+            console.log(meshRef.current)
+            if (isHovered) {
+                console.log('RUN')
+                console.log(e)
+                console.log(`${e.distance}\n${e.eventObject.position.z}\n${e.deltaY}`)
+                if(e.deltaY > 0) {
+                    gsap.to(e.eventObject.position, {
+                        z: `+=${SPEED_ROLL}`,
+                        overwrite: "auto",
+                        duration:1
+                    })
+                }else{
+                    gsap.to(e.eventObject.position, {
+                        z: `-=${SPEED_ROLL}`,
+                        overwrite: "auto",
+                        duration:1
+                    })
+                }
+            }
+           
+           
+        }
+
+       
+    
 
     return (
         <>
-            <group ref={meshRef} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} >
+            {/* <group ref={meshRef}   onWheel={onWheel} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} >
                 {targets}
+            </group> */}
+            <group ref={meshRef} onWheel={onWheel} raycast={() => ({})}>
+                <mesh >
+                    <planeGeometry args={[200, 100]} />
+                    <meshBasicMaterial color={"pink"} />
+                </mesh>
+                <mesh >
+                    <planeGeometry args={[200, 100]} />
+                    <meshBasicMaterial color={"pink"} />
+                </mesh>
+                <mesh >
+                    <planeGeometry args={[200, 100]} />
+                    <meshBasicMaterial color={"pink"} />
+                </mesh>
             </group>
+          
         </>
     )
 }
