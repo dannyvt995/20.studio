@@ -117,3 +117,21 @@ let mesh
 }
 
 export default GlobalProduct3D
+
+
+
+.set([...meshRef.current.children].map((child) => child.position), {
+  z: r + Math.round(e.distance) ,
+  overwrite: "auto",
+})
+.to(meshRef.current.position, {
+  z: r,
+  duration: 0.7,
+  overwrite:"auto",
+  ease:Power2.easeOut
+},"<")
+.to([...meshRef.current.children].map((child) => child.position), {
+  z: 0,
+  duration: 0.5,
+  overwrite: "auto"
+})

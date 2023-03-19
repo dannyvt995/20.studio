@@ -1,7 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useThree, useLoader } from "@react-three/fiber";
+import { useThree, extend, useLoader, useFrame } from "@react-three/fiber";
 import * as THREE from 'three';
+import { shaderMaterial } from "@react-three/drei";
 import gsap, { Power2 } from "gsap";
+import POS_JSON from './pos.json'
+import glsl from "babel-plugin-glsl/macro";
 const images = {
     image1: require('../.././asset/gallery/3.png'),
     image2: require('../.././asset/gallery/5.png'),
@@ -9,264 +12,160 @@ const images = {
     image4: require('../.././asset/gallery/b.png'),
     image5: require('../.././asset/gallery/7.jpg')
 };
+const WaveShaderMaterial = shaderMaterial(
+    // Uniform
+    {
+        uTime: 0,
+        //uColor: new THREE.Color(0.0, 0.0, 0.0),
+        uTexture: new THREE.Texture()
+    },
+    // Vertex Shader
+    glsl`
+      precision mediump float;
+   
+      varying vec2 vUv;
+      varying float vWave;
+  
+      uniform float uTime;
+  
+      #pragma glslify: snoise3 = require(glsl-noise/simplex/3d.glsl);
+  
+      void main() {
+        vUv = uv;
+  
+        vec3 pos = position;
+        float noiseFreq = 2.0;
+        float noiseAmp = 0.9;
+        vec3 noisePos = vec3(pos.x * noiseFreq + uTime, pos.y, pos.z);
+        pos.z += snoise3(noisePos) * noiseAmp;
+        vWave = pos.z;
+  
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);  
+      }
+
+
+      
+    `,
+    // Fragment Shader
+    glsl`
+    /*   precision mediump float;
+  
+      uniform vec3 uColor;
+      uniform float uTime;
+      uniform sampler2D uTexture;
+  
+      varying vec2 vUv;
+      varying float vWave;
+  
+      void main() {
+        float wave = vWave * 0.2;
+        vec3 texture = texture2D(uTexture, vUv + wave).rgb;
+        gl_FragColor = vec4(texture, 1.0); 
+      }
+ */
+      varying vec2 vUv;
+uniform sampler2D uTexture;
+varying float vWave;
+void main() {
+    float wave = vWave * 0.05;
+  vec3 texture = texture2D(uTexture, vUv ).rgb;
+  gl_FragColor = vec4(texture, 1.);
+}
+    `
+);
+
+extend({ WaveShaderMaterial });
+
 
 export default function PlaneGeo() {
+    // config var
+    const ref = useRef();
     const [targets, setTargets] = useState([]);
-    const [targetHeight, setTargetHeight] = useState([]);
-    const [calcY, setCalcY] = useState();
-    const [targetsCompare, setTargetsCompare] = useState([]);
+
     const { viewport, scene, mouse } = useThree();
     const meshRef = useRef();
-    const [dragging, setDragging] = useState(false);
-    const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+    const [active, setActive] = useState(false)
+    //config obj
+    const SIZE_GROUP = { w: 900, h: 500, z: 0 }
     const W_GEO = 80
 
-    const heightRandom = [
-        110,
-        70,
-        110,
-        110,
-        160,
-        70,
-        160,
-        110,
-        160,
-        110,
-        70,
-        70,
-        70,
-        110,
-        160,
-        110,
-        160,
-        160,
-        160,
-        110,
-        70,
-        160,
-        70,
-        110,
-        110,
-        160,
-        70,
-        70,
-        110,
-        70,
-        70,
-        110,
-        160,
-        70,
-        70,
-        160,
-        110,
-        160,
-        70,
-        110,
-        160,
-        70,
-        110,
-        110,
-        70,
-        160,
-        70,
-        70,
-        70,
-        70
-    ]
-    const COL_GEO = 10
-    const ROW_GEO = 5
-
-
-    const [targetsPos, setTargetsPos] = useState([]);
-
-
-    const onPointerDown = (e) => {
-        console.log(`${Math.round(mouse.x * 100) / 100} === mouseX , ${Math.round(mouse.y * 100) / 100} === mouseY`)
-        //console.log(e.clientX, e.clientY)
-        console.log(meshRef.current.position.x, meshRef.current.position.y)
-        //setDragging(true);
-        setDragOffset({
-            x: e.clientX - meshRef.current.position.x,
-            y: e.clientY - meshRef.current.position.y
-        });
-    }
-
-    const onPointerUp = (e) => {
-        setDragging(false);
-    }
-
-    const onPointerMove = (e) => {
-        if (dragging) {
-            const x = (e.clientX - dragOffset.x);
-            const y = (e.clientY - dragOffset.y);
-            gsap.to(meshRef.current.position, { x, y, duration: 1 });
-
-        }
-    };
-
-    useEffect(() => {
-        meshRef.current.position.set(0, 0, 0)
+    /*  useFrame(({ clock }) => (
      
-    }, [meshRef])
-
+         meshRef.current.children[22].material.uTime = clock.getElapsedTime()
+     )); */
 
     useEffect(() => {
+        console.log(POS_JSON)
 
-        let H_GEO = 150
-        let l = Math.random(150) + 20
-
-        for (let i = 0; i < COL_GEO; i++) {
-            for (let j = 0; j < ROW_GEO; j++) {
-                let u = Math.random(100) + 10
-                let p = (u - 10) * 100
-
-                //let h = Math.floor(Math.random() * 100) + 50;
-
-                let arrh = [70, 110, 160]
-                let m = Math.floor(Math.random() * 3)
-                let h = arrh[m]
-                //console.log(h)
-
-                setTargetsPos(targetsPos => [...targetsPos, [(W_GEO + 20) * i, 100 * j, 0]]);
-                setTargetHeight(targetHeight => [...targetHeight, h])
-             
-
-                let texture = new THREE.TextureLoader().load(images[`image${Math.floor(Math.random() * 5 + 1)}`])
-                let aspectOfPlane = W_GEO / h;
-                let aspectOfImage = 644 / 965;
-                let yScale = 1;
-                let xScale = aspectOfPlane / aspectOfImage;
-                if (xScale > 1) { // it doesn't cover so based on x instead
-                    xScale = 1;
-                    yScale = aspectOfImage / aspectOfPlane;
-                }
-                texture.repeat.set(xScale, yScale);
-                texture.offset.set((1 - xScale) / 2, (1 - yScale) / 2);
-
-                // console.log(texture)
-
-                let rZd = Math.floor(Math.random() * 520) + 300
-                let rXd = (W_GEO + 20) * i
-                let rYd = 100 * j
-                targets.push(
-                    <mesh key={Math.random(50) + j}
-                        position={[rXd, rYd, -rZd]} // Pos defuat
-                        scale={[1,1,1]}
-                        onPointerDown={onPointerDown}
-                        onPointerMove={onPointerMove}
-                        onPointerUp={onPointerUp}>
-                        <planeGeometry args={[W_GEO, h]} />
-                        <meshBasicMaterial transparent opacity={1} map={texture} />
-                    </mesh>
-                )
-
-
-
-
-
+        for (let i = 0; i < POS_JSON.length; i++) {
+            let texture = new THREE.TextureLoader().load(images[`image${Math.floor(Math.random() * 5 + 1)}`])
+            let aspectOfPlane = W_GEO / POS_JSON[i].h;
+            let aspectOfImage = 644 / 965;
+            let yScale = 1;
+            let xScale = aspectOfPlane / aspectOfImage;
+            if (xScale > 1) { // it doesn't cover so based on x instead
+                xScale = 1;
+                yScale = aspectOfImage / aspectOfPlane;
             }
+            texture.repeat.set(xScale, yScale);
+            texture.offset.set((1 - xScale) / 2, (1 - yScale) / 2);
+            targets.push(
+                <mesh key={Math.random() * 50}
+                    position={[POS_JSON[i].x, POS_JSON[i].y, 0]} // Pos defuat
+                    scale={[1, 1, 1]}
+                >
+                    <planeGeometry attach="geometry" args={[W_GEO, POS_JSON[i].h]} />
+                    {/*  <waveShaderMaterial attach="material"  uTexture={texture}   /> */}
+                    <meshBasicMaterial transparent opacity={0} map={texture} />
+                </mesh>
+            )
+
         }
 
-    }, [scene]);
+    }, [])
 
-    const TIME_SETPOS = 2
+    useFrame(({ clock }) => {
+        /*  meshRef.current.children.forEach(child => {
+             if (child.material.type === "ShaderMaterial") {
+                 child.material.uniforms.uTime.value = clock.getElapsedTime();
+             }
+         }); */
+
+
+    });
+
+
     useEffect(() => {
-        if (targetsPos.length > ((COL_GEO * ROW_GEO) / 3 * 2)) {
-            //console.log(targetsPos[1][1])
-            console.log(targetHeight)
-            console.log(targetsPos)
-            console.log(performance.now())
-            setTimeout(() => {
-                let a = meshRef.current.children
+        console.log(meshRef.current.children)
+        let list = meshRef.current.children
+        meshRef.current.position.set(-(SIZE_GROUP.w / 2 + 50), -(SIZE_GROUP.h / 1.6), SIZE_GROUP.z)
+        // const timeline = gsap.timeline({})  
 
-                for (let e = 0; e < a.length; e+=5) {
-                        let delayT = Math.random(1) + 0.1
-                        gsap.to(a[e].position, {
-                            x: targetsPos[e][0],
-                            y: targetsPos[e][1]  + (targetHeight[e] / 2),
-                            z: targetsPos[e][2],
-                            delay: delayT,
-                            duration: TIME_SETPOS,
-                            ease: Power2.easeInOut
-                        })
-                        animaChild(a[e], delayT)
-              
-
-                }
-                for (let e = 1; e < a.length; e+=5) {
-                    let delayT = Math.random(1) + 0.1
-                    gsap.to(a[e].position, {
-                        x: targetsPos[e][0],
-                        y: targetHeight[e - 1] + (targetHeight[e] / 2) + 20,
-                        z: targetsPos[e][2],
-                        delay: delayT,
-                        duration: TIME_SETPOS,
-                        ease: Power2.easeInOut
-                    })
-                    animaChild(a[e], delayT)
-                }
-                for (let e = 2; e < a.length; e+=5) {
-                    let delayT = Math.random(1) + 0.1
-                    gsap.to(a[e].position, {
-                        x: targetsPos[e][0],
-                        y: targetHeight[e - 2] + targetHeight[e - 1] + (targetHeight[e] / 2) + 40,
-                        z: targetsPos[e][2],
-                        delay: delayT,
-                        duration: TIME_SETPOS,
-                        ease: Power2.easeInOut
-                    })
-                    animaChild(a[e], delayT)
-                }
-                for (let e = 3; e < a.length; e+=5) {
-                    let delayT = Math.random(1) + 0.1
-                    gsap.to(a[e].position, {
-                        x: targetsPos[e][0],
-                        y: targetHeight[e - 3] + targetHeight[e - 2] + targetHeight[e - 1] + (targetHeight[e] / 2) + 60,
-                        z: targetsPos[e][2],
-                        delay: delayT,
-                        duration: TIME_SETPOS,
-                        ease: Power2.easeInOut
-                    })
-                    animaChild(a[e], delayT)
-                }
-                for (let e = 4; e < a.length; e+=5) {
-                    let delayT = Math.random(1) + 0.1
-                    gsap.to(a[e].position, {
-                        x: targetsPos[e][0],
-                        y: targetHeight[e - 4] + targetHeight[e - 3] + targetHeight[e - 2] + targetHeight[e - 1] + (targetHeight[e] / 2) + 80,
-                        z: targetsPos[e][2],
-                        delay: delayT,
-                        duration: TIME_SETPOS,
-                        ease: Power2.easeInOut
-                    })
-                    animaChild(a[e], delayT)
-                }
-               
-            }, 1000);
-        }
-
-    }, [targetsPos, meshRef])
-
-    function animaChild(target, delay) {
-        gsap.to(target.scale, {
-            x: 1,
-            y: 1,
-            z: 1,
-
-            duration: 1,
-            ease: Power2.easeInOut
+        let dl = Math.random() * 4 + .5
+        list.forEach((item, i) => {
+            //console.log(item)
+            gsap.timeline({ overwrite: "auto" })
+                .to(item.material, {
+                    opacity: 1,
+                    duration: 3,
+                    ease: Power2.easeOut,
+                    delay: Math.random() * 2 + .5,
+                })
+                .fromTo(item.position, {
+                    z: -220
+                }, {
+                    z: 0,
+                    duration: 3,
+                    ease: Power2.easeOut,
+                    delay: .7,
+                }, "<")
         })
-        gsap.to(target.material, {
-            opacity: 1,
-            duration: 1,
-            delay: delay,
-            ease: Power2.easeInOut
-        })
-    }
+    }, [meshRef.current]);
+
 
     return (
         <>
-            <group ref={meshRef} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} >
+            <group ref={meshRef}>
                 {targets}
             </group>
         </>
