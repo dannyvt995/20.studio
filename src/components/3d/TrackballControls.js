@@ -221,12 +221,9 @@ class TrackballControls extends EventDispatcher {
 				if ( factor !== 1.0 && factor > 0.0 ) {
 
 					if ( scope.object.isPerspectiveCamera ) {
-						console.log('run dactor')
+				
 						_eye.multiplyScalar(factor);
-						console.log(mesh.children[1].children[22])
 					
-						console.log(1.0 + ( _zoomEnd.y - _zoomStart.y ) * scope.zoomSpeed)
-						console.log(_eye)
 					} else if ( scope.object.isOrthographicCamera ) {
 
 						scope.object.zoom /= factor;
