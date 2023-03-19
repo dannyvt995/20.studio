@@ -49,13 +49,13 @@ function TrackballControlsComponent() {
     
   let prevValWheel = 0
   useEffect(() => {
-    const controls = new TrackballControls(camera, gl.domElement,scene);
+    const controls = new TrackballControls(camera, gl.domElement);
     controlsRef.current = controls;
 
     return () => {
       controls.dispose();
     };
-  }, [camera, gl,scene]);
+  }, [camera, gl]);
 
   let t = 0
   useEffect(() => {
@@ -70,7 +70,6 @@ function TrackballControlsComponent() {
     controlsRef.current.maxDistance = CAM_VIEW_Z + 100
    controlsRef.current.minDistance = 95
     controlsRef.current.dynamicDampingFactor = 0.092
-    controlsRef.current.staticMoving = false
   },[controlsRef,scene])
 
 
