@@ -1,9 +1,9 @@
-/* import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import SwiperCore, { Scrollbar,Mousewheel} from "swiper";
 import 'swiper/css';
 import '.././styles/SliderPartner.css';
-
+SwiperCore.use([Scrollbar,Mousewheel]);
 const images = {
   image1: require('.././asset/gallery/3.png'),
   image2: require('.././asset/gallery/5.png'),
@@ -19,16 +19,22 @@ export default function SliderPartners() {
       setActiveIndex(swiper.activeIndex);
       console.log(swiper.activeIndex)
     };
-  
-  
+    
+    
+
+   
   return (
     <section className='wrapper-slider-partners'>
 
-        
+        <div className='heading'>
+        Our Partners
+        </div>
       <Swiper
         slidesPerView={3}
       
         dir="rtl"
+        //mousewheel = {{enabled: true,sensitivity: 5.5}}
+        //scrollbar={{ draggable: true, dragSize: 24 }}
         onSlideChange={handleSlideChange}
 
       >
@@ -46,7 +52,12 @@ export default function SliderPartners() {
     
         <SwiperSlide>
           <div className='item sd'>
-            END
+
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className='item sd'>
+              
           </div>
         </SwiperSlide>
 
@@ -54,4 +65,3 @@ export default function SliderPartners() {
     </section>
   );
 }
- */

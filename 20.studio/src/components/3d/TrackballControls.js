@@ -18,7 +18,7 @@ class TrackballControls extends EventDispatcher {
 
 		const scope = this;
 		const STATE = { NONE: - 1, ROTATE: 0, ZOOM: 1, PAN: 2, TOUCH_ROTATE: 3, TOUCH_ZOOM_PAN: 4 };
-
+		
 		this.object = object;
 		this.domElement = domElement;
 		this.domElement.style.touchAction = 'none'; // disable touch scroll
@@ -202,7 +202,7 @@ class TrackballControls extends EventDispatcher {
 				if ( scope.object.isPerspectiveCamera ) {
 
 					_eye.multiplyScalar( factor );
-
+					
 				} else if ( scope.object.isOrthographicCamera ) {
 
 					scope.object.zoom /= factor;
@@ -223,7 +223,8 @@ class TrackballControls extends EventDispatcher {
 					if ( scope.object.isPerspectiveCamera ) {
 				
 						_eye.multiplyScalar(factor);
-					
+						
+					 	
 					} else if ( scope.object.isOrthographicCamera ) {
 
 						scope.object.zoom /= factor;
@@ -236,7 +237,7 @@ class TrackballControls extends EventDispatcher {
 					}
 
 				}else{
-					console.log('end anime')
+					//console.log('end anime')
 					/*  if(mesh.children[1].children[22].position.z !== 0 ) {
 						mesh.children[1].children[22].position.z -= 0.05
 					}  */
@@ -247,9 +248,12 @@ class TrackballControls extends EventDispatcher {
 					_zoomStart.copy( _zoomEnd );
 
 				} else {
-					
+				//	console.log(_zoomStart.y)
 					_zoomStart.y += ( _zoomEnd.y - _zoomStart.y ) * this.dynamicDampingFactor;
-
+					if(mesh) {
+						//console.log(mesh.children[22].position.z)
+						
+					}
 				}
 
 			}
@@ -325,7 +329,8 @@ class TrackballControls extends EventDispatcher {
 		};
 
 		this.update = function () {
-
+			//console.log(_eye)
+		
 			_eye.subVectors( scope.object.position, scope.target );
 
 			if ( ! scope.noRotate ) {
@@ -394,9 +399,9 @@ class TrackballControls extends EventDispatcher {
 			scope.object.zoom = scope.zoom0;
 
 			scope.object.updateProjectionMatrix();
-
+			
 			_eye.subVectors( scope.object.position, scope.target );
-
+			
 			scope.object.lookAt( scope.target );
 
 			scope.dispatchEvent( _changeEvent );

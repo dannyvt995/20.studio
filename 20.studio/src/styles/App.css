@@ -10,9 +10,15 @@
 }
 
 @font-face {
+  font-family: "NVNValkyBold";
+  src: local("NVNValkyBold"),
+  url(".././fonts/ValkyVH/MTDValkyBold.otf") format("truetype");
+}
+
+@font-face {
   font-family: "NVNValky";
   src: local("NVNValky"),
-  url(".././fonts/ValkyVH/MTDValkyBold.otf") format("truetype");
+  url(".././fonts/ValkyVH/MTDValkyLight.otf") format("truetype");
 }
 
 

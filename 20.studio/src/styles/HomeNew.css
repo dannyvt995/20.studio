@@ -5,33 +5,42 @@
     height:100vh;
     
 }
-.services-section-inpage .title,.portfolio-section .title  {
+.services-section-inpage .title,.portfolio-section-inpage .title  {
     position:relative;
-    padding-top:32px;
+
+    display:flex;
+ 
+    justify-content: space-between;
 }
-.services-section-inpage .title h2,.portfolio-section .title h2 {
+.services-section-inpage .title .heading-clone,.portfolio-section-inpage .title .heading-clone {
     font-family: NVNValky;
-    font-size: 10vh;
+    font-size: 12vh;
     line-height: 100%;
     text-align: left;
-   margin:0 0 32px 64px;
+    padding: 5vh 0 5vh 64px;
+   display: block;
+   width: fit-content;
+   position: relative;
 }
-.services-section-inpage .title a,.portfolio-section .title a {
-    display:block;
+.services-section-inpage .title .sub-heading,.portfolio-section-inpage .title .sub-heading {
+    display: flex;
+    width: -moz-fit-content;
+    width: fit-content;
     font-family: PoiretOne;
-    
-    font-size: 32px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 100%;
+    align-items: center;
     letter-spacing: 0.01em;
-    text-align: left;
-    margin: 0 2rem;
-    position:absolute;
-    top:50%;
-    right:0;
-    transform:translateY(-50%);
+    margin-right: 64px;
+    position: relative;
 }
-.services-section-inpage .title a:after,.portfolio-section .title a:after {
+.services-section-inpage .title .sub-heading p,.portfolio-section-inpage .title .sub-heading p {
+    position: relative;
+    
+    padding-bottom: .5rem;
+}
+.services-section-inpage .title .sub-heading p:after,.portfolio-section-inpage  .title .sub-heading p:after {
     content:"";
     position:absolute;
     bottom:0;
@@ -59,7 +68,7 @@
     position:relative;
     width: calc(calc(100vw - 256px) / 3);
     height: 75vh;
-    background:#00800052;
+    background:white;
     display:block;
    
     transform-origin: center;
@@ -160,7 +169,7 @@ text-align: right;
 
 }
 :root {
-    --height-compare : 150vh;
+    --height-compare : 80vh;
 }
 .portfolio-section .img  a:nth-child(1) {
    /*  grid-row-start:1;
@@ -169,7 +178,7 @@ text-align: right;
     grid-column-end : 3; */
     width: 64%;
     height:var(--height-compare);
-    border:2px solid green;
+    
     overflow:hidden;
 
     left:0;
@@ -181,7 +190,7 @@ text-align: right;
     grid-column-end : 5; */
     width: 34%;
     overflow:hidden;
-    border:2px solid green;
+    
     right:0;
 }
 .portfolio-section .img  a:nth-child(3) {
@@ -225,4 +234,111 @@ text-align: right;
 .portfolio-section .img  a img {
     width:100%;
     height:100%;
+}
+
+.gallery-section-inpage {
+    font-family: NVNValky;
+    font-size: 60px;
+
+    line-height: 100%;
+    letter-spacing: 0em;
+    text-align: center;
+    padding: 10vh 0;
+
+}
+
+
+.passion-section {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+.passion-section .content {
+    display:flex;
+    height: 100%;
+    padding: 0 64px;
+}
+.passion-section .content div {
+    width: 50%;
+    display: flex;
+    align-items: center;
+   
+}
+
+
+.passion-section .content div.text {
+    font-family: NVNValky;
+font-size: 48px;
+font-weight: 600;
+line-height: 48px;
+letter-spacing: 0.02em;
+text-align: left;
+
+}
+
+
+.passion-section .sticker-warpper {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.passion-section .sticker-warpper .stickerSpace {
+    display: flex;
+    position: absolute;
+}
+.passion-section .sticker-warpper .stickerSpace span{
+    font-family: NVNValky;
+    width: fit-content;
+    text-align: center;
+    height: 80px;
+    font-size: 80px;
+    letter-spacing: 5px;
+    padding: 0 4rem;
+    align-items: center;
+    display: flex;
+ 
+}
+.passion-section .sticker-warpper .stickerSpace:nth-child(1) {
+    top:0;
+}
+.passion-section .sticker-warpper .stickerSpace:nth-child(2) {
+    bottom:0;    
+}
+.passion-section .sticker-warpper .stickerSpace:nth-child(3) {
+    transform-origin: center center;
+    top:80%;
+    left:80%;
+    
+    transform:translate(-50%,-50%) rotate(-45deg)
+}
+
+
+.portfolio-section-inpage {
+    height: 100vh;
+}
+.portfolio-section-inpage h2 {
+    height: 20vh;
+}
+.portfolio-section-inpage .test {
+    height: 80vh;
+    overflow: hidden;
+    max-width: 100%;
+    padding: 0 64px;
+    display: flex;
+    justify-content: space-between;
+}
+.portfolio-section-inpage .test a {
+    display: block;
+
+    background-color: antiquewhite;
+}
+.box1 {
+    width: 500px;
+    height: 800px;
+}
+.box2 {
+    width: 500px;
+    height: 300px;
 }

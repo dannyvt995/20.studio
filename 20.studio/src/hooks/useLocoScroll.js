@@ -14,7 +14,7 @@ const useLocoScroll = (start) => {
     let locoScroll = new LocomotiveScroll({
       el: scrollEl,
       smooth: true,
-      multiplier: 1.5,
+      multiplier: 1.2,
     });
 
     locoScroll.on('scroll', ScrollTrigger.update);
