@@ -19,63 +19,40 @@ function TrackballControlsComponent() {
   const controlsRef = useRef();
   const MAX_VIEW = 86
   const MED_VIEW = 160
-  const CAM_VIEW_Z = 150
-  const SIZE_GROUP = { w: 900, h: 500, z: 0 }
+  const CAM_VIEW_Z = 400
+
   useEffect(() => {
-    const controls = new TrackballControls(camera, gl.domElement,scene.children[1]);
+    const controls = new TrackballControls(camera, gl.domElement);
     controlsRef.current = controls;
-  console.log(controlsRef.current)
+  console.log(controls)
     return () => {
       controls.dispose();
     };
   }, [camera, gl]);
 
-  let t = 0
+
   useEffect(() => {
     console.log(controlsRef.current)
-    console.log(scene.children[1].position)
-    scene.children[1].position.set(-(SIZE_GROUP.w / 2 + 50), -(SIZE_GROUP.h / 1.6), SIZE_GROUP.z)
+   
+    scene.children[1].position.set(-50,-50,0)
     controlsRef.current.object.position.set(0, 0, CAM_VIEW_Z);
-    controlsRef.current.noRotate = true
+    controlsRef.current.noRotate = false
     controlsRef.current.noPan = true
-   // controlsRef.current.noZoom = true
+   controlsRef.current.noZoom = false
     controlsRef.current.zoomSpeed = 0.2
     controlsRef.current.maxDistance = CAM_VIEW_Z + 100
    controlsRef.current.minDistance = 95
     controlsRef.current.dynamicDampingFactor = 0.092
   },[controlsRef,scene])
 
-  let did =0
-  let targetTo = 0
-  let delta = 0
-  const handleWheel = (e) => {
-    delta += e.deltaY > 0 ? 2 : -2;
-    console.log(delta)
-    gsap.fromTo(controlsRef.current.object.position,{
-      z :controlsRef.current.object.position.z,
-      overwrite:"auto",
-      duration:  0.5,
-    }, {
-      z :controlsRef.current.object.position.z + (delta * 4),
-      overwrite:"auto",
-      duration:  0.5,
-      onComplete:()=> {
-        delta = 0
-      }
-    })
-    
-  };
-
-
-
-  useEffect(() => {
-  
-    window.addEventListener('wheel', handleWheel);
-
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-    };
-  }, [handleWheel]);
+  useFrame(() => {
+    if (controlsRef.current) {
+      const zoomLevel = controlsRef.current.object.position.z - 150;
+      
+      controlsRef.current.update();
+    }
+   
+  });
 
 
  
@@ -90,9 +67,9 @@ export default function Aboutus() {
             gl={{ antialias: true }}
             onCreated={({ gl }) => (gl.gammaFactor = 2.2, gl.outputEncoding = THREE.sRGBEncoding)}
           >
-            <axesHelper args={[500, 500, 500]} />
-            <ImgFullPage />
-  
+             <axesHelper args={[1000, 1000, 500]} /> 
+            <ImgFullPage /> 
+            
             <TrackballControlsComponent/>
             
           </Canvas>

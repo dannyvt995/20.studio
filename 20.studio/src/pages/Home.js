@@ -16,7 +16,6 @@ import '.././styles/HomeNew.css'
 import SliderPartners from '../components/SliderPartners';
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { CSSRulePlugin } from "gsap/CSSRulePlugin"
 
 const images = {
   image1: require('.././asset/gallery/3.png'),
@@ -35,53 +34,6 @@ export default function Home() {
 
   const listImgRef = useRef(null);
   const listImgDetailRef = useRef(null);
-  useEffect(() => {
-
-
-    /*   let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".section-gallery",
-          scroller: '.container',
-          scrub: true,
-          pin: true,
-          // markers:true,
-          start: "top top",
-          end: "+=200%"
-        }
-      });
-      tl.from(".line-2", {
-        scaleX: 0,
-        transformOrigin: "left center",
-        ease: "none"
-      })
-      .from(".img-gsap-fix a", {
-        opacity: 0,
-        y: 400,
-        stagger: 0.7,
-        ease: "power2.inOut"
-      }, 0); */
-
-
-    /*   let tlvid = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".welcome-section",
-          scroller: '.container',
-          scrub: true,
-          pin: true,
-         // markers:true,
-          start: "top center",
-          end: "+=100%"
-        }
-      });
-      tlvid.to(vidSec.current, {
-        scale: 2,
-    
-        ease: "none"
-      }) */
-
-
-  }, []);
-
 
   const stickerContext = [
     `<span>craftmenship</span>`,
@@ -106,10 +58,6 @@ export default function Home() {
 
 
   useEffect(() => {
-    const listImgProfolio = gsap.utils.toArray(".portfolio-section .img a");
-    const listImgProfolioDetail = gsap.utils.toArray(".portfolio-section .img a img");
-
-    // const ychen = (listImgProfolioDetail[0].getBoundingClientRect().height) / (listImgProfolioDetail[2].getBoundingClientRect().height)
 
     let ctx = gsap.context(() => {
 
@@ -153,57 +101,7 @@ export default function Home() {
             x: 0
           })
       });
-
-
-      const timeline = gsap.timeline();
-     timeline.to('.box1', { 
-      yPercent: -100, 
-      duration: 1,
-      onUpdate: (self) => {
-        let box1_Rect = document.querySelector('.box1').getBoundingClientRect()
-        let box2_Rect = document.querySelector('.box2').getBoundingClientRect()
-        const yPercentC = timeline.progress() * -100;
-        console.log(timeline.progress())
-        if(box1_Rect.bottom < box2_Rect.bottom) {
-          console.log(`yPercent: ${-yPercentC}`);
-          console.log(`yPercent: ${100 - (-yPercentC)}`);
-          
-          gsap.to('.box2', {
-            yPercent: -100,
-            duration: 0.5,
-       
-           
-          });
-          
-        } else {
-          return;
-        }
-      }
-     })
-    
-
-   
-      ScrollTrigger.create({
-        trigger: ".portfolio-section-inpage",
-        scroller: ".container",
-        scrub: true,
-        pin: true,
-        //markers: true,
-        start: "top top",
-        end: `+=420%`,
-        onUpdate: function (self) {
-         
-         // console.log(timeline.progress());
-         // console.log(box1_Bottom)
-        
-        },
-        animation: timeline
-      });
-    
-
-
     })
-
     return () => ctx.revert();
 
   }, [])
@@ -237,49 +135,8 @@ export default function Home() {
 
         <ServicesinPage />
         <SliderPartners />
-        {/*  <div className='portfolio-section' >
-          <div className='title'>
-            <a className='heading-clone'>Services</a>
-            <a className='sub-heading'><p>Explore our services</p></a>
-          </div>
-          <div className='img' id="portfolio-trigger">
-            <a><img src={images.image1} alt /></a>
-           
-             <a><img src={images.image2} alt /></a>
-           <a><img src={images.image3} alt /></a>
-            <a><img src={images.image4} alt /></a>
 
-          </div>
-        </div> */}
-
-        <div className='portfolio-section-inpage'>
-          <div className='title'>
-            <a className='heading-clone'>Portfolio</a>
-            <a className='sub-heading'><p>Explore our portfolio</p></a>
-          </div>
-          <div className='test'>
-            <a className='box1'>Box 1</a>
-            <a className='box2'>Box 2</a>
-          </div>
-        </div>
-        {/*  <div className='gallery-section-inpage'>
-
-          <h2>Visit Our Gallery</h2>
-        </div>
-        <div className='passion-section'>
-            <div className='content'>
-              <div className='text'>with craftmentship, creativity and love, we turn our client’s ideas into peice of art</div>
-              <div className='img'><img src={images.image4} alt=''/></div>
-            </div>
-            <div className='sticker-warpper'>
-                <div className='stickerSpace'></div>
-                <div className='stickerSpace'></div>
-                <div className='stickerSpace'></div>
-            </div>
-        </div> */}
-        {/* <GalleryinPage /> */}
-
-        {/*   <Partners/> */}
+     
         <Contact />
       </section>
     </>

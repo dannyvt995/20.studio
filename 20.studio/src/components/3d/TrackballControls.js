@@ -12,7 +12,7 @@ const _endEvent = { type: 'end' };
 
 class TrackballControls extends EventDispatcher {
 
-	constructor( object, domElement,mesh ) {
+	constructor( object, domElement ) {
 
 		super();
 
@@ -250,10 +250,7 @@ class TrackballControls extends EventDispatcher {
 				} else {
 				//	console.log(_zoomStart.y)
 					_zoomStart.y += ( _zoomEnd.y - _zoomStart.y ) * this.dynamicDampingFactor;
-					if(mesh) {
-						//console.log(mesh.children[22].position.z)
-						
-					}
+				
 				}
 
 			}
